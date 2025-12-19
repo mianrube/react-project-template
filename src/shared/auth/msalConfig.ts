@@ -9,6 +9,7 @@ export const msalConfig: Configuration = {
     authority: appConfig.auth.authority,
     redirectUri: appConfig.auth.redirectUri,
     postLogoutRedirectUri: appConfig.auth.postLogoutRedirectUri,
+    navigateToLoginRequestUrl: false,
   },
   cache: {
     // MSAL recommends configuring cache; storage choice is app-dependent.

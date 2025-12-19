@@ -15,6 +15,7 @@ import { mapI18nLanguageToLocale } from '@shared/i18n/locale-mapping';
 
 import { useAppSelector } from '@store';
 
+import { AuthReturnUrlSync } from './AuthReturnUrlSync';
 import { I18nStoreSync } from './I18nStoreSync';
 
 export const ProvidersRuntime = ({ children }: PropsWithChildren) => {
@@ -32,6 +33,7 @@ export const ProvidersRuntime = ({ children }: PropsWithChildren) => {
   return (
     <MsalProvider instance={msalInstance}>
       <I18nStoreSync />
+      <AuthReturnUrlSync />
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale={adapterLocale}>
