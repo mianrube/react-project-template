@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
 
+import { MsalProvider } from '@azure/msal-react';
 import { CssBaseline } from '@mui/material';
 import { ThemeProvider } from '@mui/material/styles';
 import { LocalizationProvider } from '@mui/x-date-pickers';
@@ -7,6 +8,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import type { PropsWithChildren } from 'react';
 import { useTranslation } from 'react-i18next';
 
+import { msalInstance } from '@shared/auth';
 import { setDayjsLocale } from '@shared/config/localization';
 import { createAppTheme } from '@shared/config/theme';
 import { mapI18nLanguageToLocale } from '@shared/i18n/locale-mapping';
@@ -28,7 +30,7 @@ export const ProvidersRuntime = ({ children }: PropsWithChildren) => {
   }, [i18n.language]);
 
   return (
-    <>
+    <MsalProvider instance={msalInstance}>
       <I18nStoreSync />
       <ThemeProvider theme={theme}>
         <CssBaseline />
@@ -36,6 +38,6 @@ export const ProvidersRuntime = ({ children }: PropsWithChildren) => {
           {children}
         </LocalizationProvider>
       </ThemeProvider>
-    </>
+    </MsalProvider>
   );
 };
