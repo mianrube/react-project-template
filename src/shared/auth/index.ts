@@ -5,3 +5,4 @@ export * from './guards';
 export * from './msalConfig';
 export * from './msalInstance';
 export * from './navigation';
+export * from './token';
