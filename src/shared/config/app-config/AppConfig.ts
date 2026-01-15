@@ -13,6 +13,10 @@ export type AppConfig = {
   apiBaseUrl: string;
   environmentName: string;
   auth: AuthConfig;
+  signalR: {
+    notificationsHubUrl: string;
+    chatHubUrl: string;
+  };
 };
 
 export const appConfig: AppConfig = {
@@ -25,5 +29,9 @@ export const appConfig: AppConfig = {
     redirectUri: readEnvString('VITE_AUTH_REDIRECT_URI'),
     postLogoutRedirectUri: readEnvString('VITE_AUTH_POST_LOGOUT_REDIRECT_URI'),
     apiScope: readEnvString('VITE_AUTH_API_SCOPE'),
+  },
+  signalR: {
+    notificationsHubUrl: readEnvString('VITE_SIGNALR_NOTIFICATIONS_HUB_URL'),
+    chatHubUrl: readEnvString('VITE_SIGNALR_CHAT_HUB_URL'),
   },
 };

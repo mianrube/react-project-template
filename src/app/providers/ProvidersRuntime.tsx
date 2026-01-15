@@ -17,6 +17,7 @@ import { useAppSelector } from '@store';
 
 import { AuthReturnUrlSync } from './AuthReturnUrlSync';
 import { I18nStoreSync } from './I18nStoreSync';
+import { SignalRNotificationsRuntime } from './SignalRNotificationsRuntime';
 
 export const ProvidersRuntime = ({ children }: PropsWithChildren) => {
   const themeMode = useAppSelector((state) => state.ui.themeMode);
@@ -34,6 +35,8 @@ export const ProvidersRuntime = ({ children }: PropsWithChildren) => {
     <MsalProvider instance={msalInstance}>
       <I18nStoreSync />
       <AuthReturnUrlSync />
+      <SignalRNotificationsRuntime />
+
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale={adapterLocale}>
