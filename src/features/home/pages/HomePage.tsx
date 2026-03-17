@@ -19,6 +19,7 @@ export const HomePage = () => {
         <LanguageSwitcher />
         <ThemeSwitcher />
         <AuthButtons />
+        {/* <CrashTestButton /> */}
 
         <Typography variant="body2">
           {isLoading && 'Loading ping...'}

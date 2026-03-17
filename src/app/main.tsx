@@ -5,6 +5,7 @@ import { App } from '@app';
 import { AppProviders } from '@app/providers';
 
 import { bootstrapMsal } from '@shared/auth';
+import { ErrorBoundary } from '@shared/components';
 
 import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
@@ -17,9 +18,11 @@ const bootstrap = async () => {
 
   createRoot(document.getElementById('root')!).render(
     <StrictMode>
-      <AppProviders>
-        <App />
-      </AppProviders>
+      <ErrorBoundary>
+        <AppProviders>
+          <App />
+        </AppProviders>
+      </ErrorBoundary>
     </StrictMode>,
   );
 };
