@@ -1,5 +1,10 @@
 {
   "app": {
     "title": "Plantilla de Proyecto React"
+  },
+  "navigation": {
+    "admin": "Admin",
+    "home": "Inicio",
+    "protected": "Protegido"
   }
 }

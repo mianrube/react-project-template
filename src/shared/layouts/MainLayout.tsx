@@ -1,32 +1,21 @@
 import { Box } from '@mui/material';
 import { Outlet } from 'react-router';
 
-import { StatusBar } from '@shared/components';
+import { Sidebar, StatusBar, TopBar } from '@shared/components';
 
 export const MainLayout = () => {
   return (
-    <Box
-      sx={{
-        minHeight: '100vh',
-        display: 'flex',
-        flexDirection: 'column',
-      }}
-    >
-      {/* TopBar / Header (future) */}
-      {/* <TopBar /> */}
+    <Box sx={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
+      <TopBar />
 
-      {/* Main content */}
-      <Box
-        component="main"
-        sx={{
-          flex: 1,
-          overflow: 'auto',
-        }}
-      >
-        <Outlet />
+      <Box sx={{ flex: 1, display: 'flex', minHeight: 0 }}>
+        <Sidebar />
+
+        <Box component="main" sx={{ flex: 1, overflow: 'auto' }}>
+          <Outlet />
+        </Box>
       </Box>
 
-      {/* Status bar (always visible) */}
       <StatusBar />
     </Box>
   );

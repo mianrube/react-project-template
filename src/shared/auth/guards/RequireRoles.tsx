@@ -1,7 +1,8 @@
 import { useMsal } from '@azure/msal-react';
 import type { PropsWithChildren } from 'react';
+import { Navigate } from 'react-router';
 
-import { getAccountRoles, hasAnyRole } from '@shared/auth/claims';
+import { getAccountRoles, hasAnyRole } from '@shared/auth';
 
 type RequireRolesProps = PropsWithChildren & {
   allowedRoles: string[];
@@ -16,7 +17,7 @@ export const RequireRoles = ({ allowedRoles, children }: RequireRolesProps) => {
   const isAllowed = hasAnyRole(roles, allowedRoles);
 
   if (!isAllowed) {
-    return <div>Unauthorized</div>;
+    return <Navigate to="/unauthorized" replace />;
   }
 
   return children;

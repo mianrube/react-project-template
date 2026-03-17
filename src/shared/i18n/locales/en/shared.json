@@ -1,5 +1,10 @@
 {
   "app": {
     "title": "React Project Template"
+  },
+  "navigation": {
+    "admin": "Admin",
+    "home": "Home",
+    "protected": "Protected"
   }
 }
