@@ -9,6 +9,7 @@ import type { PropsWithChildren } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { msalInstance } from '@shared/auth';
+import { GlobalFeedbackSnackbar } from '@shared/components';
 import { setDayjsLocale } from '@shared/config/localization';
 import { createAppTheme } from '@shared/config/theme';
 import { mapI18nLanguageToLocale } from '@shared/i18n/locale-mapping';
@@ -16,6 +17,7 @@ import { mapI18nLanguageToLocale } from '@shared/i18n/locale-mapping';
 import { useAppSelector } from '@store';
 
 import { AuthReturnUrlSync } from './AuthReturnUrlSync';
+import { GlobalErrorRuntime } from './GlobalErrorRuntime';
 import { I18nStoreSync } from './I18nStoreSync';
 import { SignalRNotificationsRuntime } from './SignalRNotificationsRuntime';
 
@@ -36,11 +38,13 @@ export const ProvidersRuntime = ({ children }: PropsWithChildren) => {
       <I18nStoreSync />
       <AuthReturnUrlSync />
       <SignalRNotificationsRuntime />
+      <GlobalErrorRuntime />
 
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale={adapterLocale}>
           {children}
+          <GlobalFeedbackSnackbar />
         </LocalizationProvider>
       </ThemeProvider>
     </MsalProvider>

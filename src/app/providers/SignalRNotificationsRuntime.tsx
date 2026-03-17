@@ -4,8 +4,10 @@ import type { HubConnection } from '@microsoft/signalr';
 import { LogLevel } from '@microsoft/signalr';
 
 import { appConfig } from '@shared/config/app-config';
+import { normalizeErrorMessage } from '@shared/errors';
 import { createHubConnection, startConnectionSafely } from '@shared/realtime';
 
+import { enqueueMessage } from '@features/app-feedback/store';
 import { setLastNotification, setNotificationsConnected } from '@features/realtime/store';
 
 import { useAppDispatch } from '@store';
@@ -41,8 +43,16 @@ export const SignalRNotificationsRuntime = () => {
       try {
         await startConnectionSafely(connection);
         dispatch(setNotificationsConnected(true));
-      } catch {
+      } catch (error) {
         dispatch(setNotificationsConnected(false));
+        dispatch(
+          enqueueMessage({
+            id: crypto.randomUUID(),
+            severity: 'error',
+            title: 'SignalR connection failed',
+            description: normalizeErrorMessage(error),
+          }),
+        );
       }
     })();
 

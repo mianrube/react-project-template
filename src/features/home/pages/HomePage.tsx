@@ -4,6 +4,7 @@ import { AuthButtons, LanguageSwitcher, ThemeSwitcher } from '@shared/components
 import { useScopedTranslation } from '@shared/hooks';
 
 import { usePingQuery } from '../api';
+import { CrashTestButton } from '../components/CrashTestButton';
 
 const BASE_KEY = 'pages.HomePage';
 
@@ -19,7 +20,7 @@ export const HomePage = () => {
         <LanguageSwitcher />
         <ThemeSwitcher />
         <AuthButtons />
-        {/* <CrashTestButton /> */}
+        <CrashTestButton />
 
         <Typography variant="body2">
           {isLoading && 'Loading ping...'}

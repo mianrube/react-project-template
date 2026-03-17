@@ -1,6 +1,7 @@
 export * from './auth-buttons';
 export * from './error-boundary';
 export * from './error-state';
+export * from './global-feedback-snackbar';
 export * from './language-switcher';
 export * from './loading-state';
 export * from './sidebar';
