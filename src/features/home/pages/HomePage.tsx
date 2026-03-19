@@ -1,6 +1,5 @@
 import { Stack, Typography } from '@mui/material';
 
-import { AuthButtons, LanguageSwitcher, ThemeSwitcher } from '@shared/components';
 import { useScopedTranslation } from '@shared/hooks';
 
 import { usePingQuery } from '../api';
@@ -17,9 +16,6 @@ export const HomePage = () => {
     <Stack spacing={2} sx={{ p: 2 }}>
       <Stack direction="row" spacing={2} alignItems="center">
         <Typography variant="h4">{tScoped('title')}</Typography>
-        <LanguageSwitcher />
-        <ThemeSwitcher />
-        <AuthButtons />
         <CrashTestButton />
 
         <Typography variant="body2">

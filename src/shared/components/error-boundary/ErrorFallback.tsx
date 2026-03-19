@@ -1,11 +1,17 @@
 import { Box, Button, Stack, Typography } from '@mui/material';
 
+import { useScopedTranslation } from '@shared/hooks';
+
 type ErrorFallbackProps = {
   error?: Error | null;
   onRetry?: () => void;
 };
 
+const BASE_KEY = 'errorFallback';
+
 export const ErrorFallback = ({ error, onRetry }: ErrorFallbackProps) => {
+  const { tScoped } = useScopedTranslation(BASE_KEY, { ns: 'shared' });
+
   return (
     <Box
       sx={{
@@ -17,11 +23,9 @@ export const ErrorFallback = ({ error, onRetry }: ErrorFallbackProps) => {
       }}
     >
       <Stack spacing={2} sx={{ maxWidth: 560, textAlign: 'center' }}>
-        <Typography variant="h4">Something went wrong</Typography>
+        <Typography variant="h4">{tScoped('title')}</Typography>
 
-        <Typography color="text.secondary">
-          An unexpected error occurred while rendering the application.
-        </Typography>
+        <Typography color="text.secondary">{tScoped('description')}</Typography>
 
         {error?.message ? (
           <Typography
@@ -42,7 +46,7 @@ export const ErrorFallback = ({ error, onRetry }: ErrorFallbackProps) => {
         {onRetry ? (
           <Box>
             <Button variant="contained" onClick={onRetry}>
-              Retry
+              {tScoped('retry')}
             </Button>
           </Box>
         ) : null}

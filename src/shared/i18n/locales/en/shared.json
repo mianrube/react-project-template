@@ -2,9 +2,29 @@
   "app": {
     "title": "React Project Template"
   },
+  "authButtons": {
+    "signIn": "Sign in",
+    "signOut": "Sign out"
+  },
+  "errorFallback": {
+    "description": "An unexpected error occurred while rendering the application.",
+    "retry": "Retry",
+    "title": "Something went wrong"
+  },
+  "languageSwitcher": {
+    "languages": {
+      "en": "English",
+      "es": "Spanish"
+    },
+    "tooltip": "Change language"
+  },
   "navigation": {
     "admin": "Admin",
     "home": "Home",
     "protected": "Protected"
+  },
+  "themeSwitcher": {
+    "turnOffLight": "Turn off the light",
+    "turnOnLight": "Turn on the light"
   }
 }

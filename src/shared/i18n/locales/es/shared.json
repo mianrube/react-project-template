@@ -2,9 +2,29 @@
   "app": {
     "title": "Plantilla de Proyecto React"
   },
+  "authButtons": {
+    "signIn": "Iniciar sesión",
+    "signOut": "Cerrar sesión"
+  },
+  "errorFallback": {
+    "description": "Se produjo un error inesperado al renderizar la aplicación.",
+    "retry": "Reintentar",
+    "title": "Algo salió mal"
+  },
+  "languageSwitcher": {
+    "languages": {
+      "en": "Inglés",
+      "es": "Español"
+    },
+    "tooltip": "Cambiar idioma"
+  },
   "navigation": {
     "admin": "Admin",
     "home": "Inicio",
     "protected": "Protegido"
+  },
+  "themeSwitcher": {
+    "turnOffLight": "Apagar la luz",
+    "turnOnLight": "Encender la luz"
   }
 }
