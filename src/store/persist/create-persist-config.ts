@@ -1,4 +1,4 @@
-import type { PersistConfig } from 'redux-persist';
+import type { PersistConfig, PersistedState, PersistMigrate } from 'redux-persist';
 
 import { type PersistStorageKind, persistStorages } from './persist-storages';
 import { APP_STORAGE_VERSION } from './storage-version';
@@ -20,9 +20,37 @@ export const createPersistConfig = <S>({
     storage: persistStorages[storageKind],
     whitelist: whitelist as string[],
     /**
-     * Default strategy: reset on version change.
-     * Return undefined to force redux-persist to rehydrate with initial state.
+     * Default strategy: keep persisted state.
+     * If we detect a version mismatch, return undefined to force rehydration with initial state.
      */
-    migrate: async () => undefined,
+    migrate: (async (state: unknown, currentVersion: number): Promise<PersistedState> => {
+      const isRecord = (value: unknown): value is Record<string, unknown> =>
+        typeof value === 'object' && value !== null;
+
+      if (!isRecord(state)) return state as PersistedState;
+
+      const persistMeta = state['_persist'];
+
+      let incomingVersion: number | undefined;
+      if (isRecord(persistMeta) && typeof persistMeta['version'] === 'number') {
+        incomingVersion = persistMeta['version'];
+      } else if (typeof persistMeta === 'string') {
+        try {
+          const parsed = JSON.parse(persistMeta) as unknown;
+          if (isRecord(parsed) && typeof parsed['version'] === 'number') {
+            incomingVersion = parsed['version'];
+          }
+        } catch {
+          // Ignore parse errors and keep state
+        }
+      }
+
+      if (typeof incomingVersion === 'number' && incomingVersion !== currentVersion) {
+        // redux-persist treats `undefined` as "use initial state".
+        return undefined as unknown as PersistedState;
+      }
+
+      return state as PersistedState;
+    }) as PersistMigrate,
   };
 };
