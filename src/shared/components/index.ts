@@ -1,3 +1,4 @@
+export * from './app-brand';
 export * from './auth-buttons';
 export * from './error-boundary';
 export * from './error-state';

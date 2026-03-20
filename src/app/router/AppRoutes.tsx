@@ -7,12 +7,14 @@ import { NotFoundPage, UnauthorizedPage } from '@shared/pages';
 import { AdminPage } from '@features/admin/pages/AdminPage';
 import { HomePage } from '@features/home/pages/HomePage';
 import { ProtectedPage } from '@features/protected/pages/ProtectedPage';
+import { TendersListPage } from '@features/tenders/pages';
 
 export const AppRoutes = () => {
   return (
     <Routes>
       <Route element={<MainLayout />}>
         <Route path="/" element={<HomePage />} />
+        <Route path="/tenders" element={<TendersListPage />} />
 
         <Route
           path="/protected"

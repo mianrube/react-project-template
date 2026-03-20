@@ -1,0 +1,71 @@
+{
+  "pages": {
+    "TendersListPage": {
+      "eyebrow": "Tender insights",
+      "title": "Tender extracts overview",
+      "description": "Review extracted tender information, identify potential discrepancies, and analyze the key details of each tender.",
+      "stats": {
+        "totalCount": "Rows returned",
+        "foundCount": "Matches found",
+        "discrepancyCount": "Discrepancies",
+        "uniqueTenderCount": "Distinct tenders"
+      },
+      "filters": {
+        "title": "Filters",
+        "subtitle": "Refine the results by year, client, tender, parameter, and status.",
+        "year": "Year",
+        "month": "Month",
+        "client": "Client",
+        "tender": "Tender",
+        "parameter": "Parameter",
+        "found": "Found",
+        "discrepancy": "Discrepancies",
+        "all": "All",
+        "clear": "Clear filters",
+        "apply": "Apply filters",
+        "results": "{{count}} results",
+        "active_one": "1 active filter",
+        "active_other": "{{count}} active filters"
+      },
+      "grid": {
+        "title": "Client and tender extract details",
+        "subtitle": "Review the detail of each extract and its validation status.",
+        "noNotes": "No notes",
+        "columns": {
+          "year": "Year",
+          "client": "Client",
+          "tender": "Tender",
+          "uploadDate": "Upload date",
+          "releaseDate": "Release date",
+          "parameter": "Parameter",
+          "value": "Value",
+          "found": "Found",
+          "discrepancy": "Discrepancies",
+          "notes": "Notes"
+        }
+      },
+      "states": {
+        "loading": "Loading tender extracts...",
+        "errorTitle": "Tender extracts could not be loaded",
+        "errorDescription": "The information could not be retrieved right now. Try again.",
+        "emptyTitle": "No extracts match the selected filters",
+        "emptyDescription": "Clear or relax the filters to inspect more tender rows."
+      },
+      "boolean": {
+        "yes": "Yes",
+        "no": "No"
+      },
+      "statuses": {
+        "hasDiscrepancy": "With discrepancy",
+        "noDiscrepancy": "No discrepancy"
+      },
+      "parameters": {
+        "annualities": "Annualities",
+        "baseBudget": "Tender base budget",
+        "executionTerm": "Execution term",
+        "intermediateMilestones": "Intermediate milestones",
+        "startDate": "Start date"
+      }
+    }
+  }
+}

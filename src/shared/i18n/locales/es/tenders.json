@@ -1,0 +1,71 @@
+{
+  "pages": {
+    "TendersListPage": {
+      "eyebrow": "Insights de licitaciones",
+      "title": "Resumen de extractos de licitaciones",
+      "description": "Consulta los extractos detectados, revisa posibles discrepancias y analiza la informacion clave de cada licitacion.",
+      "stats": {
+        "totalCount": "Filas devueltas",
+        "foundCount": "Coincidencias encontradas",
+        "discrepancyCount": "Discrepancias",
+        "uniqueTenderCount": "Licitaciones distintas"
+      },
+      "filters": {
+        "title": "Filtros",
+        "subtitle": "Refina los resultados por año, cliente, licitación, parámetro y estado.",
+        "year": "Año",
+        "month": "Mes",
+        "client": "Cliente",
+        "tender": "Licitación",
+        "parameter": "Parámetro",
+        "found": "Encontrado",
+        "discrepancy": "Discrepancias",
+        "all": "Todas",
+        "clear": "Borrar filtros",
+        "apply": "Aplicar filtros",
+        "results": "{{count}} resultados",
+        "active_one": "1 filtro activo",
+        "active_other": "{{count}} filtros activos"
+      },
+      "grid": {
+        "title": "Detalle de extractos por cliente y licitacion",
+        "subtitle": "Consulta el detalle de cada extracto y su estado de validacion.",
+        "noNotes": "Sin notas",
+        "columns": {
+          "year": "Año",
+          "client": "Cliente",
+          "tender": "Licitación",
+          "uploadDate": "F. subida",
+          "releaseDate": "F. salida",
+          "parameter": "Parámetro",
+          "value": "Valor",
+          "found": "Encontrado",
+          "discrepancy": "Discrepancias",
+          "notes": "Notas"
+        }
+      },
+      "states": {
+        "loading": "Cargando extractos de licitaciones...",
+        "errorTitle": "No se pudieron cargar los extractos",
+        "errorDescription": "No ha sido posible recuperar la información en este momento. Inténtalo de nuevo.",
+        "emptyTitle": "No hay extractos que coincidan con los filtros seleccionados",
+        "emptyDescription": "Limpia o suaviza los filtros para inspeccionar más filas de licitaciones."
+      },
+      "boolean": {
+        "yes": "Sí",
+        "no": "No"
+      },
+      "statuses": {
+        "hasDiscrepancy": "Con discrepancia",
+        "noDiscrepancy": "Sin discrepancia"
+      },
+      "parameters": {
+        "annualities": "Anualidades",
+        "baseBudget": "Presupuesto base de licitación",
+        "executionTerm": "Plazo de ejecución",
+        "intermediateMilestones": "Hitos intermedios",
+        "startDate": "Fecha de inicio"
+      }
+    }
+  }
+}

@@ -5,13 +5,20 @@ import { Sidebar, StatusBar, TopBar } from '@shared/components';
 
 export const MainLayout = () => {
   return (
-    <Box sx={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
+    <Box
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        height: '100dvh',
+        overflow: 'hidden',
+      }}
+    >
       <TopBar />
 
-      <Box sx={{ flex: 1, display: 'flex', minHeight: 0 }}>
+      <Box sx={{ flex: 1, display: 'flex', minHeight: 0, minWidth: 0, overflow: 'hidden' }}>
         <Sidebar />
 
-        <Box component="main" sx={{ flex: 1, overflow: 'auto' }}>
+        <Box component="main" sx={{ flex: 1, minHeight: 0, minWidth: 0, overflow: 'auto' }}>
           <Outlet />
         </Box>
       </Box>

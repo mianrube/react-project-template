@@ -1,6 +1,7 @@
 {
   "app": {
-    "title": "React Project Template"
+    "projectName": "Tender Docs",
+    "title": "Tender Docs"
   },
   "authButtons": {
     "signIn": "Sign in",
@@ -21,7 +22,15 @@
   "navigation": {
     "admin": "Admin",
     "home": "Home",
-    "protected": "Protected"
+    "protected": "Protected",
+    "tenders": "Tenders"
+  },
+  "sidebar": {
+    "navigation": "Navigation",
+    "openNavigation": "Open navigation",
+    "closeNavigation": "Close navigation",
+    "collapseNavigation": "Collapse navigation",
+    "expandNavigation": "Expand navigation"
   },
   "themeSwitcher": {
     "turnOffLight": "Turn off the light",

@@ -363,6 +363,7 @@ Do NOT:
 - use plain `.css` files without module scoping
 - use legacy MUI styling APIs
 - hardcode random colors in components
+- implement reusable MUI or MUI X internal selector overrides inside feature components
 
 If CSS is necessary, use **CSS Modules**.
 
@@ -403,6 +404,38 @@ Theme mode is stored in Redux UI state and persisted.
 ## 9.4 AI Rule
 
 Do not hardcode color values inside components when a theme token or semantic color is appropriate.
+
+## 9.5 Global Component Overrides
+
+Shared visual defaults for Material UI and MUI X components must be defined in:
+
+```txt
+shared/config/theme/create-app-theme.ts
+```
+
+Examples:
+
+- `MuiDataGrid` headers, icons, fillers, and shared interaction states
+- shared button defaults
+- reusable defaults that are safe for every instance of a component
+
+If a style fix should apply to future screens by default, move it into the global theme instead of repeating it in feature-local `sx`.
+
+This is mandatory for MUI X internals such as:
+
+- `MuiDataGrid` headers
+- `MuiDataGrid` icon buttons
+- `MuiDataGrid` fillers
+- `MuiDataGrid` focus states
+- other repeated grid internals shared across screens
+
+Feature components may configure behavior props such as columns, pagination, row height, sorting, and slots, but reusable `MuiDataGrid` internal selectors must be owned by `create-app-theme.ts`.
+
+Shared component defaults that define the baseline visual language, such as button text casing, must also be owned by `create-app-theme.ts` instead of being repeated in feature components.
+
+Before adding a global override for a base MUI primitive, verify that it will not create side effects in other components that inherit from it. For example, broad `MuiPaper` overrides can affect `AppBar`, menus, dialogs, and other paper-based surfaces. If the style is not safe for all of them, use a shared preset inside `shared/config/theme/` instead of a global override.
+
+If a style is reusable but not universal for every instance of a component, define it as a shared preset or helper inside `shared/config/theme/` and consume that preset from features. Do not inline repeated gradients, surface treatments, or repeated visual recipes directly inside feature components.
 
 ---
 

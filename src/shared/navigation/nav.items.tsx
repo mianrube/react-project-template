@@ -1,4 +1,5 @@
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
+import AssignmentOutlinedIcon from '@mui/icons-material/AssignmentOutlined';
 import HomeIcon from '@mui/icons-material/Home';
 import LockIcon from '@mui/icons-material/Lock';
 
@@ -16,6 +17,12 @@ export const navItems: NavItem[] = [
     labelKey: 'shared.navigation.protected',
     to: '/protected',
     icon: <LockIcon fontSize="small" />,
+  },
+  {
+    id: 'tenders',
+    labelKey: 'shared.navigation.tenders',
+    to: '/tenders',
+    icon: <AssignmentOutlinedIcon fontSize="small" />,
   },
   {
     id: 'admin',

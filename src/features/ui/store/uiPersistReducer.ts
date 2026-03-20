@@ -9,7 +9,7 @@ export const uiPersistReducer = persistReducer(
   createPersistConfig<UiState>({
     key: 'ui',
     storageKind: 'local',
-    whitelist: ['themeMode', 'language'],
+    whitelist: ['themeMode', 'language', 'sidebarExpanded'],
   }),
   uiReducer,
 );

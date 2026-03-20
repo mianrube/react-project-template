@@ -1,6 +1,7 @@
 {
   "app": {
-    "title": "Plantilla de Proyecto React"
+    "projectName": "Tender Docs",
+    "title": "Tender Docs"
   },
   "authButtons": {
     "signIn": "Iniciar sesión",
@@ -21,7 +22,15 @@
   "navigation": {
     "admin": "Admin",
     "home": "Inicio",
-    "protected": "Protegido"
+    "protected": "Protegido",
+    "tenders": "Licitaciones"
+  },
+  "sidebar": {
+    "navigation": "Navegacion",
+    "openNavigation": "Abrir navegacion",
+    "closeNavigation": "Cerrar navegacion",
+    "collapseNavigation": "Colapsar navegacion",
+    "expandNavigation": "Expandir navegacion"
   },
   "themeSwitcher": {
     "turnOffLight": "Apagar la luz",

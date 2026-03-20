@@ -4,24 +4,40 @@ export type ThemeMode = (typeof THEME_MODES)[number];
 export const designTokens = {
   light: {
     palette: {
-      primary: '#1976d2',
-      secondary: '#9c27b0',
-      background: '#f5f5f5',
+      appBar: '#29327B',
+      appBarContrastText: '#ffffff',
+      primary: {
+        main: '#29327B',
+        contrastText: '#ffffff',
+      },
+      secondary: {
+        main: '#00A896',
+        contrastText: '#ffffff',
+      },
+      background: '#f6f8fc',
       surface: '#ffffff',
-      textPrimary: '#111827',
-      textSecondary: '#4b5563',
-      divider: '#e5e7eb',
+      textPrimary: '#16213d',
+      textSecondary: '#5d6782',
+      divider: '#dce3ef',
     },
   },
   dark: {
     palette: {
-      primary: '#90caf9',
-      secondary: '#ce93d8',
-      background: '#0b1120',
-      surface: '#020617',
-      textPrimary: '#f9fafb',
-      textSecondary: '#9ca3af',
-      divider: '#1f2937',
+      appBar: '#29327B',
+      appBarContrastText: '#ffffff',
+      primary: {
+        main: '#9ca8ff',
+        contrastText: '#101633',
+      },
+      secondary: {
+        main: '#49d2c3',
+        contrastText: '#082622',
+      },
+      background: '#0b1124',
+      surface: '#101936',
+      textPrimary: '#f5f7ff',
+      textSecondary: '#b4bfd8',
+      divider: '#263156',
     },
   },
 } as const;
