@@ -17,9 +17,10 @@ import {
 } from '@mui/material';
 import { alpha } from '@mui/material/styles';
 
+import { ErrorState, LoadingState } from '@shared/components';
 import { useScopedTranslation } from '@shared/hooks';
 
-import { useAppSelector } from '@store';
+import { useGetFaqsQuery } from '@features/faqs/api';
 
 import { FAQ_CATEGORY_VALUES, type FaqCategory, matchesFaqSearch } from '../model';
 
@@ -36,8 +37,14 @@ const publicCategoryChipColorMap = {
 
 export const FaqsPage = () => {
   const { tScoped } = useScopedTranslation(BASE_KEY, { ns: 'faqs' });
-  const faqItems = useAppSelector((state) => state.faqManagement.items);
-  const publishedFaqs = faqItems.filter((faq) => faq.isPublished);
+  const {
+    data: faqItems,
+    isError: isFaqsError,
+    isLoading: isFaqsLoading,
+    refetch: refetchFaqs,
+  } = useGetFaqsQuery();
+  const items = faqItems ?? [];
+  const publishedFaqs = items.filter((faq) => faq.isPublished);
 
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<PublicFaqCategoryFilter>('all');
@@ -49,6 +56,22 @@ export const FaqsPage = () => {
 
     return matchesCategory && matchesFaqSearch(faq, deferredSearchQuery);
   });
+
+  if (isFaqsLoading && !faqItems) {
+    return <LoadingState label={tScoped('states.loading')} />;
+  }
+
+  if (isFaqsError || !faqItems) {
+    return (
+      <ErrorState
+        description={tScoped('states.errorDescription')}
+        onRetry={() => {
+          void refetchFaqs();
+        }}
+        title={tScoped('states.errorTitle')}
+      />
+    );
+  }
 
   const displayedExpandedFaqId = filteredFaqs.some((faq) => faq.id === expandedFaqId)
     ? expandedFaqId

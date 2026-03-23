@@ -1,7 +1,6 @@
 import { combineReducers } from '@reduxjs/toolkit';
 
 import { appFeedbackReducer } from '@features/app-feedback/store';
-import { faqManagementReducer } from '@features/faqs/store';
 import { realtimeReducer } from '@features/realtime/store';
 import { uiPersistReducer } from '@features/ui/store';
 
@@ -12,5 +11,4 @@ export const rootReducer = combineReducers({
   [baseApi.reducerPath]: baseApi.reducer,
   realtime: realtimeReducer,
   appFeedback: appFeedbackReducer,
-  faqManagement: faqManagementReducer,
 });

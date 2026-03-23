@@ -4,12 +4,18 @@ import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
 import { Box, Button, Chip, Stack, Typography } from '@mui/material';
 import { alpha } from '@mui/material/styles';
 
+import { ErrorState, LoadingState } from '@shared/components';
 import { useScopedTranslation } from '@shared/hooks';
 
 import { enqueueMessage } from '@features/app-feedback/store';
-import { createFaq, deleteFaq, updateFaq } from '@features/faqs/store';
+import {
+  useCreateFaqMutation,
+  useDeleteFaqMutation,
+  useGetFaqsQuery,
+  useUpdateFaqMutation,
+} from '@features/faqs/api';
 
-import { useAppDispatch, useAppSelector } from '@store';
+import { useAppDispatch } from '@store';
 
 import { FaqDetailsCard, FaqForm, FaqListPanel } from '../components';
 import {
@@ -21,22 +27,49 @@ import {
 
 const BASE_KEY = 'pages.FaqManagementPage';
 
-const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
-
 type FaqEditorMode = 'create' | 'edit' | 'view';
 
 export const FaqManagementPage = () => {
   const { tScoped } = useScopedTranslation(BASE_KEY, { ns: 'faqs' });
   const dispatch = useAppDispatch();
-  const faqItems = useAppSelector((state) => state.faqManagement.items);
+  const {
+    data: faqItems,
+    isError: isFaqsError,
+    isLoading: isFaqsLoading,
+    refetch: refetchFaqs,
+  } = useGetFaqsQuery();
+  const [createFaq, { isLoading: isCreatingFaq }] = useCreateFaqMutation();
+  const [updateFaq, { isLoading: isUpdatingFaq }] = useUpdateFaqMutation();
+  const [deleteFaq, { isLoading: isDeletingFaq }] = useDeleteFaqMutation();
   const [searchQuery, setSearchQuery] = useState('');
-  const [selectedFaqId, setSelectedFaqId] = useState<string | null>(faqItems[0]?.id ?? null);
+  const [selectedFaqId, setSelectedFaqId] = useState<string | null>(null);
   const [editorMode, setEditorMode] = useState<FaqEditorMode>('view');
 
+  const items = faqItems ?? [];
+
   const deferredSearchQuery = useDeferredValue(searchQuery);
-  const filteredFaqs = faqItems.filter((faq) => matchesFaqSearch(faq, deferredSearchQuery));
-  const selectedFaq = faqItems.find((faq) => faq.id === selectedFaqId);
-  const publishedCount = faqItems.filter((faq) => faq.isPublished).length;
+  const filteredFaqs = items.filter((faq) => matchesFaqSearch(faq, deferredSearchQuery));
+  const displayedSelectedFaqId = items.some((faq) => faq.id === selectedFaqId)
+    ? selectedFaqId
+    : (items[0]?.id ?? null);
+  const selectedFaq = items.find((faq) => faq.id === displayedSelectedFaqId);
+  const publishedCount = items.filter((faq) => faq.isPublished).length;
+
+  if (isFaqsLoading && !faqItems) {
+    return <LoadingState label={tScoped('states.loading')} />;
+  }
+
+  if (isFaqsError || !faqItems) {
+    return (
+      <ErrorState
+        description={tScoped('states.errorDescription')}
+        onRetry={() => {
+          void refetchFaqs();
+        }}
+        title={tScoped('states.errorTitle')}
+      />
+    );
+  }
 
   const handleSelectFaq = (faqId: string) => {
     startTransition(() => {
@@ -68,16 +101,9 @@ export const FaqManagementPage = () => {
   };
 
   const handleCreateSubmit = async (values: FaqFormValues) => {
-    await wait(400);
-
-    const createdFaq = {
-      ...values,
-      id: `faq-${crypto.randomUUID()}`,
-      updatedAtIso: new Date().toISOString(),
-    };
+    const createdFaq = await createFaq(values).unwrap();
 
     startTransition(() => {
-      dispatch(createFaq(createdFaq));
       setSelectedFaqId(createdFaq.id);
       setEditorMode('view');
     });
@@ -99,16 +125,10 @@ export const FaqManagementPage = () => {
       return;
     }
 
-    await wait(400);
-
-    const updatedFaq = {
-      ...selectedFaq,
-      ...values,
-      updatedAtIso: new Date().toISOString(),
-    };
+    const updatedFaq = await updateFaq({ id: selectedFaq.id, values }).unwrap();
 
     startTransition(() => {
-      dispatch(updateFaq(updatedFaq));
+      setSelectedFaqId(updatedFaq.id);
       setEditorMode('view');
     });
 
@@ -124,7 +144,7 @@ export const FaqManagementPage = () => {
     );
   };
 
-  const handleDeleteFaq = () => {
+  const handleDeleteFaq = async () => {
     if (!selectedFaq) {
       return;
     }
@@ -132,9 +152,10 @@ export const FaqManagementPage = () => {
     const removedFaqId = selectedFaq.id;
     const removedQuestion = selectedFaq.question;
 
+    await deleteFaq(removedFaqId).unwrap();
+
     startTransition(() => {
-      const remainingFaqs = faqItems.filter((faq) => faq.id !== removedFaqId);
-      dispatch(deleteFaq(removedFaqId));
+      const remainingFaqs = items.filter((faq) => faq.id !== removedFaqId);
       setSelectedFaqId(remainingFaqs[0]?.id ?? null);
       setEditorMode('view');
     });
@@ -153,6 +174,7 @@ export const FaqManagementPage = () => {
 
   const isCreateMode = editorMode === 'create';
   const isEditMode = editorMode === 'edit' && Boolean(selectedFaq);
+  const isMutating = isCreatingFaq || isUpdatingFaq || isDeletingFaq;
 
   return (
     <Stack spacing={3} sx={{ p: { xs: 2, md: 3 } }}>
@@ -174,7 +196,7 @@ export const FaqManagementPage = () => {
           </Typography>
 
           <Stack direction="row" flexWrap="wrap" gap={1}>
-            <Chip label={tScoped('stats.total', { count: faqItems.length })} size="small" />
+            <Chip label={tScoped('stats.total', { count: items.length })} size="small" />
             <Chip
               color="success"
               label={tScoped('stats.published', { count: publishedCount })}
@@ -203,8 +225,8 @@ export const FaqManagementPage = () => {
           onSearchChange={setSearchQuery}
           onSelect={handleSelectFaq}
           searchQuery={searchQuery}
-          selectedFaqId={selectedFaqId}
-          totalCount={faqItems.length}
+          selectedFaqId={displayedSelectedFaqId}
+          totalCount={items.length}
           variant="admin"
         />
 
@@ -259,8 +281,8 @@ export const FaqManagementPage = () => {
             <FaqDetailsCard
               faq={selectedFaq}
               onCreate={handleStartCreate}
-              onDelete={handleDeleteFaq}
-              onEdit={handleStartEdit}
+              onDelete={isMutating ? undefined : handleDeleteFaq}
+              onEdit={isMutating ? undefined : handleStartEdit}
               variant="admin"
             />
           )}

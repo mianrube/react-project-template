@@ -2,7 +2,7 @@ import type { FetchArgs, FetchBaseQueryError } from '@reduxjs/toolkit/query';
 import { type BaseQueryFn, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 import { getAccessToken } from '@shared/auth';
-import { appConfig } from '@shared/config/app-config';
+import { appConfig, isMockApiUrl } from '@shared/config/app-config';
 
 const rawBaseQuery = fetchBaseQuery({
   baseUrl: appConfig.apiBaseUrl,
@@ -13,7 +13,9 @@ export const baseQueryWithAuth: BaseQueryFn<
   unknown,
   FetchBaseQueryError
 > = async (args, api, extraOptions) => {
-  const token = await getAccessToken();
+  const requestUrl = typeof args === 'string' ? args : args.url;
+  const shouldAttachAuth = !isMockApiUrl(requestUrl);
+  const token = shouldAttachAuth ? await getAccessToken() : null;
 
   const argsWithAuth =
     typeof args === 'string'

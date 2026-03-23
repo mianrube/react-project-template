@@ -4,6 +4,11 @@
       "eyebrow": "Help center",
       "title": "Frequently asked questions",
       "description": "Browse the most common answers and find guidance for recurring tasks and issues.",
+      "states": {
+        "loading": "Loading FAQs...",
+        "errorTitle": "FAQs are unavailable",
+        "errorDescription": "The FAQ catalog could not be loaded. Retry to request the mock API again."
+      },
       "browse": {
         "title": "Browse help topics",
         "description": "Search the published questions or filter them by category to find the answer you need.",
@@ -27,6 +32,11 @@
       "eyebrow": "Administration",
       "title": "Manage frequently asked questions",
       "description": "Create, review, and maintain the answers available in the help center from the administration area.",
+      "states": {
+        "loading": "Loading FAQ workspace...",
+        "errorTitle": "The FAQ workspace is unavailable",
+        "errorDescription": "The FAQ data source could not be loaded. Retry to request the mock API again."
+      },
       "stats": {
         "total": "{{count}} FAQs",
         "published": "{{count}} published",

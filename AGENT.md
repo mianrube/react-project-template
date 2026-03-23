@@ -51,6 +51,7 @@ AGENT_FEATURE_REQUEST_TEMPLATE.md
 dist/
 eslint.config.js
 index.html
+mock-api/
 node_modules/
 package.json
 pnpm-lock.yaml
@@ -231,10 +232,13 @@ Current scripts are:
 ```json
 {
   "dev": "vite",
+  "dev:mock": "concurrently -k -n MOCK,APP -c yellow,cyan \"pnpm mock:api\" \"cross-env VITE_MOCK_API_BASE_URL=http://localhost:5001 VITE_MOCK_API_RESOURCES=faqs,tenders pnpm dev\"",
+  "dev:mock:custom": "concurrently -k -n MOCK,APP -c yellow,cyan \"pnpm mock:api\" \"cross-env VITE_MOCK_API_BASE_URL=http://localhost:5001 pnpm dev\"",
   "build": "tsc -b && vite build",
   "preview": "vite preview",
-  "lint": "eslint .",
-  "lint:fix": "eslint . --fix",
+  "mock:api": "json-server ./mock-api/db.json --port 5001",
+  "lint": "eslint src vite.config.ts",
+  "lint:fix": "eslint src vite.config.ts --fix",
   "format": "prettier . --write",
   "format:check": "prettier . --check"
 }
@@ -243,15 +247,19 @@ Current scripts are:
 Behavioral expectations:
 
 - `build` must type-check through project references before running the Vite production build
-- `lint` must run against the whole repository root
-- `format` and `format:check` must be repository-wide Prettier commands
+- `lint` must run against authored application code under `src/` plus the root Vite TypeScript config
+- `format` and `format:check` must remain repository-wide Prettier commands, controlled through `.prettierignore`
+- `.env`-style files must be excluded from Prettier through `.prettierignore` instead of narrowing formatting to `src/`
 
 Useful script invocations:
 
 ```txt
 pnpm dev
+pnpm dev:mock
+pnpm dev:mock:custom
 pnpm build
 pnpm preview
+pnpm mock:api
 pnpm lint
 pnpm lint:fix
 pnpm format
@@ -455,8 +463,6 @@ src/
       api/
         index.ts
         tendersApi.ts
-        mocks/
-          tenderExtracts.mock.json
       components/
         index.ts
         TendersDataGrid.tsx
@@ -816,6 +822,8 @@ Rebuild the same contract exactly:
 
 ```txt
 VITE_API_BASE_URL=
+VITE_MOCK_API_BASE_URL=
+VITE_MOCK_API_RESOURCES=
 VITE_ENVIRONMENT_NAME=development
 
 VITE_AUTH_CLIENT_ID=
@@ -832,6 +840,9 @@ VITE_SIGNALR_CHAT_HUB_URL=
 App config currently exposes:
 
 - `apiBaseUrl`
+- `mockApi.baseUrl`
+- `mockApi.resources`
+- `createCrudMockResourceUrls(resource, collectionPath)`
 - `environmentName`
 - `auth.clientId`
 - `auth.tenantId`
@@ -940,6 +951,13 @@ Rules:
 - do not add ad-hoc `fetch` logic when the concern belongs in RTK Query
 - use tags when the feature introduces cache invalidation requirements
 - keep endpoints close to the owning feature
+- when the backend does not exist yet, prefer a project-level `json-server` mock backend exposed through normal HTTP endpoints
+- prefer routing mock-backed features through `mock-api/db.json` when the feature is CRUD-like or should resemble a real API closely
+- feature-local `api/mocks/*.json` files are still acceptable for read-only datasets or transformation-heavy demos that do not benefit from a running mock server
+- pages and components must consume the RTK Query boundary, not the raw mock source
+- route real vs mock selection through shared app config so each resource can move independently
+- do not add endpoint-replacement comments when the route shape is intended to remain the same in the real backend
+- use a `REAL_API_PENDING` marker only when temporary mock-era behavior still exists beyond the endpoint host itself
 
 ---
 
@@ -1152,8 +1170,9 @@ Current implementation:
 - route-level page `FaqManagementPage`
 - reusable feature form component `FaqForm`
 - list and detail components for FAQ browsing and actions
-- feature-local slice for shared FAQ state
-- feature-local form schema, values model, and initial mock inventory
+- feature-local RTK Query endpoints for FAQ listing and mutations
+- `mock-api/db.json` as the current FAQ mock backend source selected through mock resource config
+- feature-local form schema and values model
 - success feedback integration through the global app feedback slice
 
 ## 20.5 `protected`
@@ -1191,7 +1210,7 @@ Purpose:
 Current structure responsibilities:
 
 - `api/` -> RTK Query endpoints and mock data loading
-- `api/mocks/tenderExtracts.mock.json` -> local mock source
+- `mock-api/db.json` -> mock backend source for tender extract collection when `tenders` is mock-enabled
 - `components/` -> feature-specific UI blocks
 - `model/` -> types, constants, filter contracts
 - `pages/` -> route-level page composition
@@ -1916,6 +1935,57 @@ The repository is in a healthy state when:
 - `_ABOUT.md` files explain local structure accurately
 - validation workflows are explicit and repeatable
 - future contributors can infer the next correct move from the repository itself
+
+## 32.8 Mock Backend Rule
+
+For features that still do not have a real backend, prefer the mock strategy that minimizes the eventual migration cost.
+
+Priority order:
+
+1. use `json-server` with normal HTTP endpoints when the feature behaves like a real CRUD or query API
+2. use RTK Query against that mock server so pages already depend on the final interaction shape
+3. use feature-local static JSON files only when the dataset is read-only, local, or transformation-oriented enough that a running mock server would add noise rather than value
+
+Practical interpretation:
+
+- a future backend migration should normally change endpoint URLs, request bodies, or response mapping inside the feature API layer
+- pages, components, and forms should not need structural rewrites when the real backend arrives
+- if a feature uses `json-server`, keep the mock data discoverable and easy to reset from source control
+
+## 32.9 Real vs Mock Selection Rule
+
+The repository must support mixed development states.
+
+That means one resource may already use the real backend while another still uses `json-server`.
+
+Rules:
+
+- keep the real backend base URL in `VITE_API_BASE_URL`
+- keep the mock backend base URL in `VITE_MOCK_API_BASE_URL`
+- select mock-backed resources through `VITE_MOCK_API_RESOURCES`
+- resource-level routing must happen in the feature API layer through shared config helpers, not in pages or components
+- use `createCrudMockResourceUrls(...)` for CRUD-like resources so list and item URLs follow one shared convention
+- `pnpm dev` should represent the normal real-backend-oriented flow
+- `pnpm dev:mock` should be a convenience mode for the example resources that are still mock-backed
+- `pnpm dev:mock:custom` should support mixed real/mock testing by letting the developer control `VITE_MOCK_API_RESOURCES`
+
+Examples:
+
+- `VITE_MOCK_API_RESOURCES=faqs,tenders` -> both resources go to `json-server`
+- `VITE_MOCK_API_RESOURCES=faqs` -> FAQs go to `json-server` and tenders stay on the real backend
+- empty `VITE_MOCK_API_RESOURCES` -> all resources use the real backend base URL
+
+## 32.10 Evolutive Pending Rule
+
+Pending replacement work must be easy to find, but the marker must only be used for meaningful temporary behavior.
+
+Use `REAL_API_PENDING` when:
+
+- a feature still performs client-side aggregation that should move to the real backend later
+- a mock server forces a temporary response shape or workaround
+- a feature still needs a dedicated real endpoint that does not exist yet
+
+Do not use `REAL_API_PENDING` merely to say that a mock host may later point to a real host.
 
 ---
 

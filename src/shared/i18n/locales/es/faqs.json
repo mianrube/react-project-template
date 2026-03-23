@@ -4,6 +4,11 @@
       "eyebrow": "Centro de ayuda",
       "title": "Preguntas frecuentes",
       "description": "Consulta las respuestas más habituales y encuentra orientación para tareas e incidencias recurrentes.",
+      "states": {
+        "loading": "Cargando FAQs...",
+        "errorTitle": "Las FAQs no están disponibles",
+        "errorDescription": "No se ha podido cargar el catálogo de FAQs. Reintenta la petición al mock de API."
+      },
       "browse": {
         "title": "Explora los temas de ayuda",
         "description": "Busca entre las preguntas publicadas o filtra por categoría para encontrar la respuesta que necesitas.",
@@ -27,6 +32,11 @@
       "eyebrow": "Administración",
       "title": "Gestiona las preguntas frecuentes",
       "description": "Crea, revisa y mantén las respuestas disponibles en el centro de ayuda desde el área de administración.",
+      "states": {
+        "loading": "Cargando el espacio de FAQs...",
+        "errorTitle": "El espacio de FAQs no está disponible",
+        "errorDescription": "No se ha podido cargar el origen de datos de FAQs. Reintenta la petición al mock de API."
+      },
       "stats": {
         "total": "{{count}} FAQs",
         "published": "{{count}} publicadas",

@@ -1,5 +1,7 @@
 import type { BaseQueryFn, FetchArgs, FetchBaseQueryError } from '@reduxjs/toolkit/query';
 
+import { resolveFeatureApiUrl } from '@shared/config/app-config';
+
 import { baseApi } from '@store/api';
 
 import {
@@ -10,8 +12,6 @@ import {
   type TenderFilterOptions,
 } from '../model';
 
-const tenderExtractsMockUrl = new URL('./mocks/tenderExtracts.mock.json', import.meta.url).href;
-
 type FeatureBaseQuery = BaseQueryFn<string | FetchArgs, unknown, FetchBaseQueryError>;
 
 const fetchTenderExtracts = async (
@@ -19,7 +19,14 @@ const fetchTenderExtracts = async (
   api: Parameters<FeatureBaseQuery>[1],
   extraOptions: Parameters<FeatureBaseQuery>[2],
 ): Promise<{ data: TenderExtract[] } | { error: FetchBaseQueryError }> => {
-  const result = await baseQuery({ method: 'GET', url: tenderExtractsMockUrl }, api, extraOptions);
+  const result = await baseQuery(
+    {
+      method: 'GET',
+      url: resolveFeatureApiUrl('tenders', '/tenderExtracts'),
+    },
+    api,
+    extraOptions,
+  );
 
   if (result.error) {
     return { error: result.error };
@@ -99,6 +106,7 @@ const createFilterOptions = (items: TenderExtract[]): TenderFilterOptions => {
 export const tendersApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     getTenderExtracts: builder.query<TenderExtractListResult, TenderExtractFilters>({
+      // REAL_API_PENDING: move filtering and summary generation to the backend when dedicated tender endpoints are available.
       queryFn: async (filters, api, extraOptions, baseQuery) => {
         const result = await fetchTenderExtracts(baseQuery, api, extraOptions);
 
@@ -117,6 +125,7 @@ export const tendersApi = baseApi.injectEndpoints({
       },
     }),
     getTenderFilterOptions: builder.query<TenderFilterOptions, void>({
+      // REAL_API_PENDING: replace this client-side option aggregation when the backend exposes tender filter metadata.
       queryFn: async (_arg, api, extraOptions, baseQuery) => {
         const result = await fetchTenderExtracts(baseQuery, api, extraOptions);
 
