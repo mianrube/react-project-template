@@ -20,12 +20,13 @@ import type { FaqItem } from '../model';
 
 export type FaqListPanelProps = {
   items: FaqItem[];
-  onCreate: () => void;
+  onCreate?: () => void;
   onSearchChange: (value: string) => void;
   onSelect: (faqId: string) => void;
   searchQuery: string;
   selectedFaqId: string | null;
   totalCount: number;
+  variant?: 'admin' | 'public';
 };
 
 const categoryChipColorMap = {
@@ -42,8 +43,10 @@ export const FaqListPanel = ({
   searchQuery,
   selectedFaqId,
   totalCount,
+  variant = 'admin',
 }: FaqListPanelProps) => {
   const { tScoped } = useScopedTranslation('components.FaqListPanel', { ns: 'faqs' });
+  const isAdmin = variant === 'admin';
 
   return (
     <Paper sx={{ p: 3, borderRadius: 4 }} variant="outlined">
@@ -61,9 +64,11 @@ export const FaqListPanel = ({
             </Typography>
           </Stack>
 
-          <Button onClick={onCreate} startIcon={<NoteAddOutlinedIcon />} variant="contained">
-            {tScoped('createAction')}
-          </Button>
+          {isAdmin && onCreate ? (
+            <Button onClick={onCreate} startIcon={<NoteAddOutlinedIcon />} variant="contained">
+              {tScoped('createAction')}
+            </Button>
+          ) : null}
         </Stack>
 
         <TextField
@@ -98,7 +103,7 @@ export const FaqListPanel = ({
             <Stack spacing={1}>
               <Typography variant="subtitle1">{tScoped('emptyTitle')}</Typography>
               <Typography color="text.secondary" variant="body2">
-                {tScoped('emptyDescription')}
+                {tScoped(isAdmin ? 'emptyDescription' : 'publicEmptyDescription')}
               </Typography>
             </Stack>
           </Box>

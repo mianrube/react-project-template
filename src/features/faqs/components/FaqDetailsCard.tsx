@@ -9,9 +9,10 @@ import type { FaqItem } from '../model';
 
 export type FaqDetailsCardProps = {
   faq?: FaqItem;
-  onCreate: () => void;
-  onDelete: () => void;
-  onEdit: () => void;
+  onCreate?: () => void;
+  onDelete?: () => void;
+  onEdit?: () => void;
+  variant?: 'admin' | 'public';
 };
 
 const categoryChipColorMap = {
@@ -20,23 +21,34 @@ const categoryChipColorMap = {
   technical: 'info',
 } as const;
 
-export const FaqDetailsCard = ({ faq, onCreate, onDelete, onEdit }: FaqDetailsCardProps) => {
+export const FaqDetailsCard = ({
+  faq,
+  onCreate,
+  onDelete,
+  onEdit,
+  variant = 'admin',
+}: FaqDetailsCardProps) => {
   const { tScoped } = useScopedTranslation('components.FaqDetailsCard', { ns: 'faqs' });
+  const isAdmin = variant === 'admin';
 
   if (!faq) {
     return (
       <Paper sx={{ p: 3, borderRadius: 4 }} variant="outlined">
         <Stack spacing={2.5}>
-          <Typography variant="h5">{tScoped('emptyTitle')}</Typography>
+          <Typography variant="h5">
+            {tScoped(isAdmin ? 'emptyTitle' : 'publicEmptyTitle')}
+          </Typography>
           <Typography color="text.secondary" variant="body2">
-            {tScoped('emptyDescription')}
+            {tScoped(isAdmin ? 'emptyDescription' : 'publicEmptyDescription')}
           </Typography>
 
-          <Stack direction="row" justifyContent="flex-start">
-            <Button onClick={onCreate} startIcon={<NoteAddOutlinedIcon />} variant="contained">
-              {tScoped('createAction')}
-            </Button>
-          </Stack>
+          {onCreate ? (
+            <Stack direction="row" justifyContent="flex-start">
+              <Button onClick={onCreate} startIcon={<NoteAddOutlinedIcon />} variant="contained">
+                {tScoped('createAction')}
+              </Button>
+            </Stack>
+          ) : null}
         </Stack>
       </Paper>
     );
@@ -59,14 +71,16 @@ export const FaqDetailsCard = ({ faq, onCreate, onDelete, onEdit }: FaqDetailsCa
           >
             <Typography variant="h5">{faq.question}</Typography>
 
-            <Stack direction="row" spacing={1}>
-              <Button onClick={onEdit} startIcon={<EditOutlinedIcon />} variant="outlined">
-                {tScoped('actions.edit')}
-              </Button>
-              <Button color="error" onClick={onDelete} startIcon={<DeleteOutlineOutlinedIcon />}>
-                {tScoped('actions.delete')}
-              </Button>
-            </Stack>
+            {isAdmin && onEdit && onDelete ? (
+              <Stack direction="row" spacing={1}>
+                <Button onClick={onEdit} startIcon={<EditOutlinedIcon />} variant="outlined">
+                  {tScoped('actions.edit')}
+                </Button>
+                <Button color="error" onClick={onDelete} startIcon={<DeleteOutlineOutlinedIcon />}>
+                  {tScoped('actions.delete')}
+                </Button>
+              </Stack>
+            ) : null}
           </Stack>
 
           <Stack direction="row" flexWrap="wrap" gap={1}>

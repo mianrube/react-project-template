@@ -1,9 +1,32 @@
 {
   "pages": {
+    "FaqsPage": {
+      "eyebrow": "Help center",
+      "title": "Frequently asked questions",
+      "description": "Browse the most common answers and find guidance for recurring tasks and issues.",
+      "browse": {
+        "title": "Browse help topics",
+        "description": "Search the published questions or filter them by category to find the answer you need.",
+        "searchLabel": "Search FAQs",
+        "searchPlaceholder": "Search by question, answer, or topic",
+        "results": "{{count}} of {{total}} FAQs",
+        "emptyTitle": "No matching FAQs",
+        "emptyDescription": "Try another search term or choose a different category.",
+        "categories": {
+          "all": "All topics",
+          "general": "General",
+          "billing": "Billing",
+          "technical": "Technical"
+        }
+      },
+      "stats": {
+        "published": "{{count}} published FAQs"
+      }
+    },
     "FaqManagementPage": {
-      "eyebrow": "Knowledge Base",
+      "eyebrow": "Administration",
       "title": "Manage frequently asked questions",
-      "description": "Create, review, and maintain the answers available in the help center.",
+      "description": "Create, review, and maintain the answers available in the help center from the administration area.",
       "stats": {
         "total": "{{count}} FAQs",
         "published": "{{count}} published",
@@ -84,6 +107,7 @@
       "createAction": "New FAQ",
       "emptyTitle": "No FAQs found",
       "emptyDescription": "Try another search or create a new FAQ.",
+      "publicEmptyDescription": "Try another search to find a published answer.",
       "updatedAt": "Updated {{value}}",
       "status": {
         "published": "Published",
@@ -98,6 +122,8 @@
     "FaqDetailsCard": {
       "emptyTitle": "Select an FAQ",
       "emptyDescription": "Choose an entry from the list or create a new FAQ to start editing content.",
+      "publicEmptyTitle": "No FAQ selected",
+      "publicEmptyDescription": "Choose an entry from the list to read the full answer.",
       "createAction": "New FAQ",
       "actions": {
         "edit": "Edit",

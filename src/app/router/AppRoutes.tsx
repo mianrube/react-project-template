@@ -1,11 +1,11 @@
-import { Route, Routes } from 'react-router';
+import { Outlet, Route, Routes } from 'react-router';
 
 import { RequireAuth, RequireRoles } from '@shared/auth';
 import { MainLayout, SimpleLayout } from '@shared/layouts';
 import { NotFoundPage, UnauthorizedPage } from '@shared/pages';
 
 import { AdminPage } from '@features/admin/pages/AdminPage';
-import { FaqManagementPage } from '@features/faqs/pages';
+import { FaqManagementPage, FaqsPage } from '@features/faqs/pages';
 import { HomePage } from '@features/home/pages/HomePage';
 import { ProtectedPage } from '@features/protected/pages/ProtectedPage';
 import { TendersListPage } from '@features/tenders/pages';
@@ -15,7 +15,7 @@ export const AppRoutes = () => {
     <Routes>
       <Route element={<MainLayout />}>
         <Route path="/" element={<HomePage />} />
-        <Route path="/faqs" element={<FaqManagementPage />} />
+        <Route path="/faqs" element={<FaqsPage />} />
         <Route path="/tenders" element={<TendersListPage />} />
 
         <Route
@@ -32,11 +32,14 @@ export const AppRoutes = () => {
           element={
             <RequireAuth>
               <RequireRoles allowedRoles={['Chat.Admin']}>
-                <AdminPage />
+                <Outlet />
               </RequireRoles>
             </RequireAuth>
           }
-        />
+        >
+          <Route index element={<AdminPage />} />
+          <Route path="faqs" element={<FaqManagementPage />} />
+        </Route>
       </Route>
 
       <Route element={<SimpleLayout />}>

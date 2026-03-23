@@ -7,14 +7,14 @@ import { alpha } from '@mui/material/styles';
 import { useScopedTranslation } from '@shared/hooks';
 
 import { enqueueMessage } from '@features/app-feedback/store';
+import { createFaq, deleteFaq, updateFaq } from '@features/faqs/store';
 
-import { useAppDispatch } from '@store';
+import { useAppDispatch, useAppSelector } from '@store';
 
 import { FaqDetailsCard, FaqForm, FaqListPanel } from '../components';
 import {
   DEFAULT_FAQ_FORM_VALUES,
   type FaqFormValues,
-  INITIAL_FAQ_ITEMS,
   matchesFaqSearch,
   toFaqFormValues,
 } from '../model';
@@ -28,11 +28,9 @@ type FaqEditorMode = 'create' | 'edit' | 'view';
 export const FaqManagementPage = () => {
   const { tScoped } = useScopedTranslation(BASE_KEY, { ns: 'faqs' });
   const dispatch = useAppDispatch();
-  const [faqItems, setFaqItems] = useState(INITIAL_FAQ_ITEMS);
+  const faqItems = useAppSelector((state) => state.faqManagement.items);
   const [searchQuery, setSearchQuery] = useState('');
-  const [selectedFaqId, setSelectedFaqId] = useState<string | null>(
-    INITIAL_FAQ_ITEMS[0]?.id ?? null,
-  );
+  const [selectedFaqId, setSelectedFaqId] = useState<string | null>(faqItems[0]?.id ?? null);
   const [editorMode, setEditorMode] = useState<FaqEditorMode>('view');
 
   const deferredSearchQuery = useDeferredValue(searchQuery);
@@ -79,7 +77,7 @@ export const FaqManagementPage = () => {
     };
 
     startTransition(() => {
-      setFaqItems((currentItems) => [createdFaq, ...currentItems]);
+      dispatch(createFaq(createdFaq));
       setSelectedFaqId(createdFaq.id);
       setEditorMode('view');
     });
@@ -103,20 +101,14 @@ export const FaqManagementPage = () => {
 
     await wait(400);
 
-    startTransition(() => {
-      setFaqItems((currentItems) => {
-        return currentItems.map((faq) => {
-          if (faq.id !== selectedFaq.id) {
-            return faq;
-          }
+    const updatedFaq = {
+      ...selectedFaq,
+      ...values,
+      updatedAtIso: new Date().toISOString(),
+    };
 
-          return {
-            ...faq,
-            ...values,
-            updatedAtIso: new Date().toISOString(),
-          };
-        });
-      });
+    startTransition(() => {
+      dispatch(updateFaq(updatedFaq));
       setEditorMode('view');
     });
 
@@ -142,7 +134,7 @@ export const FaqManagementPage = () => {
 
     startTransition(() => {
       const remainingFaqs = faqItems.filter((faq) => faq.id !== removedFaqId);
-      setFaqItems(remainingFaqs);
+      dispatch(deleteFaq(removedFaqId));
       setSelectedFaqId(remainingFaqs[0]?.id ?? null);
       setEditorMode('view');
     });
@@ -213,6 +205,7 @@ export const FaqManagementPage = () => {
           searchQuery={searchQuery}
           selectedFaqId={selectedFaqId}
           totalCount={faqItems.length}
+          variant="admin"
         />
 
         <Stack spacing={3}>
@@ -268,6 +261,7 @@ export const FaqManagementPage = () => {
               onCreate={handleStartCreate}
               onDelete={handleDeleteFaq}
               onEdit={handleStartEdit}
+              variant="admin"
             />
           )}
         </Stack>

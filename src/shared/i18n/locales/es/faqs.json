@@ -1,9 +1,32 @@
 {
   "pages": {
+    "FaqsPage": {
+      "eyebrow": "Centro de ayuda",
+      "title": "Preguntas frecuentes",
+      "description": "Consulta las respuestas más habituales y encuentra orientación para tareas e incidencias recurrentes.",
+      "browse": {
+        "title": "Explora los temas de ayuda",
+        "description": "Busca entre las preguntas publicadas o filtra por categoría para encontrar la respuesta que necesitas.",
+        "searchLabel": "Buscar FAQs",
+        "searchPlaceholder": "Busca por pregunta, respuesta o tema",
+        "results": "{{count}} de {{total}} FAQs",
+        "emptyTitle": "No hay FAQs que coincidan",
+        "emptyDescription": "Prueba otro término de búsqueda o elige una categoría diferente.",
+        "categories": {
+          "all": "Todos los temas",
+          "general": "General",
+          "billing": "Facturación",
+          "technical": "Técnica"
+        }
+      },
+      "stats": {
+        "published": "{{count}} FAQs publicadas"
+      }
+    },
     "FaqManagementPage": {
-      "eyebrow": "Base de conocimiento",
+      "eyebrow": "Administración",
       "title": "Gestiona las preguntas frecuentes",
-      "description": "Crea, revisa y mantén las respuestas disponibles en el centro de ayuda.",
+      "description": "Crea, revisa y mantén las respuestas disponibles en el centro de ayuda desde el área de administración.",
       "stats": {
         "total": "{{count}} FAQs",
         "published": "{{count}} publicadas",
@@ -84,6 +107,7 @@
       "createAction": "Nueva FAQ",
       "emptyTitle": "No se han encontrado FAQs",
       "emptyDescription": "Prueba otra búsqueda o crea una nueva FAQ.",
+      "publicEmptyDescription": "Prueba otra búsqueda para encontrar una respuesta publicada.",
       "updatedAt": "Actualizada {{value}}",
       "status": {
         "published": "Publicada",
@@ -98,6 +122,8 @@
     "FaqDetailsCard": {
       "emptyTitle": "Selecciona una FAQ",
       "emptyDescription": "Elige una entrada de la lista o crea una nueva FAQ para empezar a editar el contenido.",
+      "publicEmptyTitle": "No hay ninguna FAQ seleccionada",
+      "publicEmptyDescription": "Elige una entrada de la lista para leer la respuesta completa.",
       "createAction": "Nueva FAQ",
       "actions": {
         "edit": "Editar",

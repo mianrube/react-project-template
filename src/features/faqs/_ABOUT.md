@@ -1,10 +1,11 @@
 # FAQs Feature
 
-This feature manages the full lifecycle of frequently asked questions.
+This feature contains both the public FAQ experience and the administration workflows.
 
 ## Responsibilities
 
-- provide FAQ listing, search, detail, creation, update, and deletion flows
+- provide a public FAQ list and detail experience for end users
+- provide administration flows for FAQ creation, update, and deletion
 - show how feature-local form schemas and values integrate with shared form helpers
 - keep form-specific UI and validation logic inside the owning feature
 
@@ -12,7 +13,7 @@ This feature manages the full lifecycle of frequently asked questions.
 
 - entity form models and validation schemas belong in this feature
 - the feature may consume shared form helpers from `shared/forms`
-- the current implementation is self-contained and can later connect to a real backend without changing the feature boundary
+- the current implementation uses feature state and can later connect to a real backend without changing the public/admin split
 
 ## AI Notes
 
