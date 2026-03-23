@@ -25,5 +25,6 @@ This folder is responsible for application composition.
 ## AI Notes
 
 If you need to:
+
 - add a global provider → do it here
 - integrate a new cross-cutting concern → do it here

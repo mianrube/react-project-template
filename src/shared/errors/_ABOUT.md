@@ -14,6 +14,7 @@ Provides utilities to normalize and handle errors.
 ## Usage
 
 Used by:
+
 - RTK Query middleware
 - SignalR error handling
 - Global error runtime

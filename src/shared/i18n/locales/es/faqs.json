@@ -1,0 +1,121 @@
+{
+  "pages": {
+    "FaqManagementPage": {
+      "eyebrow": "Base de conocimiento",
+      "title": "Gestiona las preguntas frecuentes",
+      "description": "Crea, revisa y mantén las respuestas disponibles en el centro de ayuda.",
+      "stats": {
+        "total": "{{count}} FAQs",
+        "published": "{{count}} publicadas",
+        "filtered": "{{count}} visibles"
+      },
+      "workspace": {
+        "title": "Espacio de trabajo de FAQs",
+        "detailDescription": "Revisa la entrada seleccionada y mantén actualizado el contenido publicado.",
+        "createDescription": "Añade una nueva pregunta y respuesta a la base de conocimiento.",
+        "editDescription": "Actualiza la entrada seleccionada y publica los cambios más recientes.",
+        "newAction": "Nueva FAQ"
+      },
+      "createTitle": "Nueva FAQ",
+      "createDescription": "Añade una nueva pregunta y respuesta a la base de conocimiento.",
+      "editTitle": "Actualizar FAQ",
+      "editDescription": "Revisa el contenido actual y publica los cambios más recientes.",
+      "feedback": {
+        "createSuccessTitle": "FAQ creada",
+        "createSuccessDescription": "La FAQ \"{{question}}\" se ha creado correctamente.",
+        "editSuccessTitle": "FAQ actualizada",
+        "editSuccessDescription": "La FAQ \"{{question}}\" se ha actualizado correctamente.",
+        "deleteSuccessTitle": "FAQ eliminada",
+        "deleteSuccessDescription": "La FAQ \"{{question}}\" se ha eliminado correctamente."
+      }
+    }
+  },
+  "components": {
+    "FaqForm": {
+      "mode": {
+        "create": "Nueva entrada",
+        "edit": "Entrada existente"
+      },
+      "actions": {
+        "cancel": "Cancelar",
+        "createSubmit": "Publicar FAQ",
+        "editSubmit": "Actualizar FAQ"
+      },
+      "fields": {
+        "question": {
+          "label": "Pregunta",
+          "placeholder": "¿Cómo configuro las notificaciones para mi equipo?",
+          "helperText": "Escribe una pregunta breve y clara que los usuarios puedan escanear rápidamente."
+        },
+        "answer": {
+          "label": "Respuesta",
+          "placeholder": "Abre el panel de ajustes, elige Notificaciones y activa los canales que necesita tu equipo.",
+          "helperText": "Proporciona una respuesta completa con contexto suficiente para resolver la duda."
+        },
+        "category": {
+          "label": "Categoría",
+          "helperText": "Elige la categoría que mejor encaja con el tema de la FAQ.",
+          "options": {
+            "general": "General",
+            "billing": "Facturación",
+            "technical": "Técnica"
+          }
+        },
+        "isPublished": {
+          "label": "Publicada",
+          "helperText": "Activa esta opción cuando la FAQ esté lista para mostrarse a usuarios finales."
+        }
+      },
+      "validation": {
+        "questionRequired": "La pregunta es obligatoria.",
+        "questionMin": "La pregunta debe tener al menos 10 caracteres.",
+        "questionMax": "La pregunta debe tener como máximo 160 caracteres.",
+        "answerRequired": "La respuesta es obligatoria.",
+        "answerMin": "La respuesta debe tener al menos 20 caracteres.",
+        "answerMax": "La respuesta debe tener como máximo 1200 caracteres.",
+        "categoryRequired": "La categoría es obligatoria."
+      }
+    },
+    "FaqListPanel": {
+      "title": "FAQs",
+      "results": "{{count}} de {{total}} entradas",
+      "searchLabel": "Buscar FAQs",
+      "searchPlaceholder": "Busca por pregunta, respuesta o categoría",
+      "createAction": "Nueva FAQ",
+      "emptyTitle": "No se han encontrado FAQs",
+      "emptyDescription": "Prueba otra búsqueda o crea una nueva FAQ.",
+      "updatedAt": "Actualizada {{value}}",
+      "status": {
+        "published": "Publicada",
+        "unpublished": "Borrador"
+      },
+      "category": {
+        "general": "General",
+        "billing": "Facturación",
+        "technical": "Técnica"
+      }
+    },
+    "FaqDetailsCard": {
+      "emptyTitle": "Selecciona una FAQ",
+      "emptyDescription": "Elige una entrada de la lista o crea una nueva FAQ para empezar a editar el contenido.",
+      "createAction": "Nueva FAQ",
+      "actions": {
+        "edit": "Editar",
+        "delete": "Eliminar"
+      },
+      "sections": {
+        "answer": "Respuesta",
+        "updatedAt": "Última actualización"
+      },
+      "status": {
+        "published": "Publicada",
+        "unpublished": "Borrador"
+      },
+      "category": {
+        "general": "General",
+        "billing": "Facturación",
+        "technical": "Técnica"
+      }
+    }
+  }
+}

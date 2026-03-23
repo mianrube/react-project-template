@@ -2,6 +2,7 @@ import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import AssignmentOutlinedIcon from '@mui/icons-material/AssignmentOutlined';
 import HomeIcon from '@mui/icons-material/Home';
 import LockIcon from '@mui/icons-material/Lock';
+import QuestionAnswerOutlinedIcon from '@mui/icons-material/QuestionAnswerOutlined';
 
 import type { NavItem } from './nav.types';
 
@@ -11,6 +12,12 @@ export const navItems: NavItem[] = [
     labelKey: 'shared.navigation.home',
     to: '/',
     icon: <HomeIcon fontSize="small" />,
+  },
+  {
+    id: 'faqs',
+    labelKey: 'shared.navigation.faqs',
+    to: '/faqs',
+    icon: <QuestionAnswerOutlinedIcon fontSize="small" />,
   },
   {
     id: 'protected',

@@ -12,11 +12,11 @@ This folder contains all business domains of the application.
 ## Structure (example)
 
 features/chat/
-  components/
-  hooks/
-  store/
-  realtime/
-  pages/
+components/
+hooks/
+store/
+realtime/
+pages/
 
 ## Rules
 
@@ -32,5 +32,6 @@ features/chat/
 ## AI Notes
 
 When creating new functionality:
+
 - always create a new feature
 - do not extend unrelated features

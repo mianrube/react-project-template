@@ -20,10 +20,12 @@ Core SignalR infrastructure for realtime communication.
 ## Types of usage
 
 ### Persistent
+
 - Managed in app/providers
 - Always connected
 
 ### Session-based
+
 - Created in features
 - Short-lived
 - Streaming or task-based

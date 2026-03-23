@@ -1,0 +1,121 @@
+{
+  "pages": {
+    "FaqManagementPage": {
+      "eyebrow": "Knowledge Base",
+      "title": "Manage frequently asked questions",
+      "description": "Create, review, and maintain the answers available in the help center.",
+      "stats": {
+        "total": "{{count}} FAQs",
+        "published": "{{count}} published",
+        "filtered": "{{count}} visible"
+      },
+      "workspace": {
+        "title": "FAQ workspace",
+        "detailDescription": "Review the selected entry and keep the published content up to date.",
+        "createDescription": "Add a new question and answer to the knowledge base.",
+        "editDescription": "Update the selected entry and publish the latest changes.",
+        "newAction": "New FAQ"
+      },
+      "createTitle": "New FAQ",
+      "createDescription": "Add a new question and answer to the knowledge base.",
+      "editTitle": "Update FAQ",
+      "editDescription": "Review the current content and publish the latest changes.",
+      "feedback": {
+        "createSuccessTitle": "FAQ created",
+        "createSuccessDescription": "The FAQ \"{{question}}\" was created successfully.",
+        "editSuccessTitle": "FAQ updated",
+        "editSuccessDescription": "The FAQ \"{{question}}\" was updated successfully.",
+        "deleteSuccessTitle": "FAQ deleted",
+        "deleteSuccessDescription": "The FAQ \"{{question}}\" was deleted successfully."
+      }
+    }
+  },
+  "components": {
+    "FaqForm": {
+      "mode": {
+        "create": "New entry",
+        "edit": "Existing entry"
+      },
+      "actions": {
+        "cancel": "Cancel",
+        "createSubmit": "Publish FAQ",
+        "editSubmit": "Update FAQ"
+      },
+      "fields": {
+        "question": {
+          "label": "Question",
+          "placeholder": "How do I configure notifications for my team?",
+          "helperText": "Write a short and clear question that users can scan quickly."
+        },
+        "answer": {
+          "label": "Answer",
+          "placeholder": "Open the settings panel, choose Notifications, and enable the channels required by your team.",
+          "helperText": "Provide a complete answer with enough context to solve the issue."
+        },
+        "category": {
+          "label": "Category",
+          "helperText": "Choose the category that best matches the FAQ topic.",
+          "options": {
+            "general": "General",
+            "billing": "Billing",
+            "technical": "Technical"
+          }
+        },
+        "isPublished": {
+          "label": "Published",
+          "helperText": "Enable this flag when the FAQ is ready to be visible to end users."
+        }
+      },
+      "validation": {
+        "questionRequired": "Question is required.",
+        "questionMin": "Question must contain at least 10 characters.",
+        "questionMax": "Question must contain at most 160 characters.",
+        "answerRequired": "Answer is required.",
+        "answerMin": "Answer must contain at least 20 characters.",
+        "answerMax": "Answer must contain at most 1200 characters.",
+        "categoryRequired": "Category is required."
+      }
+    },
+    "FaqListPanel": {
+      "title": "FAQs",
+      "results": "{{count}} of {{total}} entries",
+      "searchLabel": "Search FAQs",
+      "searchPlaceholder": "Search by question, answer, or category",
+      "createAction": "New FAQ",
+      "emptyTitle": "No FAQs found",
+      "emptyDescription": "Try another search or create a new FAQ.",
+      "updatedAt": "Updated {{value}}",
+      "status": {
+        "published": "Published",
+        "unpublished": "Draft"
+      },
+      "category": {
+        "general": "General",
+        "billing": "Billing",
+        "technical": "Technical"
+      }
+    },
+    "FaqDetailsCard": {
+      "emptyTitle": "Select an FAQ",
+      "emptyDescription": "Choose an entry from the list or create a new FAQ to start editing content.",
+      "createAction": "New FAQ",
+      "actions": {
+        "edit": "Edit",
+        "delete": "Delete"
+      },
+      "sections": {
+        "answer": "Answer",
+        "updatedAt": "Last updated"
+      },
+      "status": {
+        "published": "Published",
+        "unpublished": "Draft"
+      },
+      "category": {
+        "general": "General",
+        "billing": "Billing",
+        "technical": "Technical"
+      }
+    }
+  }
+}

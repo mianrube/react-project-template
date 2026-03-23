@@ -21,6 +21,7 @@
   },
   "navigation": {
     "admin": "Admin",
+    "faqs": "FAQs",
     "home": "Home",
     "protected": "Protected",
     "tenders": "Tenders"

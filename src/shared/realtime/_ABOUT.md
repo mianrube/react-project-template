@@ -5,11 +5,13 @@ This module provides SignalR infrastructure.
 ## Types of connections
 
 ### Persistent
+
 - Defined in app layer
 - Always active
 - Used for notifications
 
 ### Session-based
+
 - Defined in features
 - Created on demand
 - Used for streaming (chat, progress, etc.)

@@ -5,8 +5,9 @@
 You are working inside a project that follows the **AI Contextual Repository Pattern**.
 
 You MUST strictly follow:
+
 - AGENT.md
-- all relevant _ABOUT.md files
+- all relevant \_ABOUT.md files
 
 Do NOT improvise architecture.
 
@@ -17,6 +18,7 @@ Do NOT improvise architecture.
 [DESCRIBE HERE WHAT THE FEATURE SHOULD DO]
 
 Examples:
+
 - What problem does it solve?
 - What should the user see?
 - What interactions are expected?
@@ -64,7 +66,7 @@ model/
 store/ (if needed)
 realtime/ (if needed)
 index.ts
-_ABOUT.md
+\_ABOUT.md
 
 ---
 

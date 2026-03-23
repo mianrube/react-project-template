@@ -21,9 +21,11 @@ This module composes all application providers.
 ## Types
 
 ### Bootstrap
+
 - Initialize app dependencies
 
 ### Runtime
+
 - Side effects
 - Subscriptions
 - Global listeners

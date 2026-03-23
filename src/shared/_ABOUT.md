@@ -21,11 +21,13 @@ This folder contains reusable, domain-agnostic modules.
 ## Examples
 
 Good:
+
 - Button component
 - useDebounce hook
 - SignalR connection factory
 
 Bad:
+
 - Chat-specific logic
 - Admin-specific components
 

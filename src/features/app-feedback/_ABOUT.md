@@ -18,6 +18,7 @@ Global user feedback system.
 ## Usage
 
 Used by:
+
 - RTK Query middleware
 - Global error runtime
 - SignalR errors

@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import type { ReactNode } from 'react';
 
 export type NavItem = {
   id: string;
@@ -6,4 +6,4 @@ export type NavItem = {
   to: string;
   icon?: ReactNode;
   allowedRoles?: string[]; // undefined => public
-}
+};
