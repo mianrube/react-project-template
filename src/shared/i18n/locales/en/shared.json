@@ -24,12 +24,20 @@
     },
     "tooltip": "Change language"
   },
+  "loadingState": {
+    "label": "Loading..."
+  },
   "navigation": {
     "admin": "Admin",
     "faqs": "FAQs",
     "home": "Home",
     "protected": "Protected",
     "tenders": "Tenders"
+  },
+  "statusBar": {
+    "noNotifications": "No notifications yet",
+    "signalrConnected": "SignalR: Connected",
+    "signalrDisconnected": "SignalR: Disconnected"
   },
   "sidebar": {
     "navigation": "Navigation",

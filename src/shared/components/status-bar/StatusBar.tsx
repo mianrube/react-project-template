@@ -1,8 +1,11 @@
 import { Chip, Stack, Typography } from '@mui/material';
 
+import { useScopedTranslation } from '@shared/hooks';
+
 import { useAppSelector } from '@store';
 
 export const StatusBar = () => {
+  const { tScoped } = useScopedTranslation('statusBar', { ns: 'shared' });
   const connected = useAppSelector((s) => s.realtime.notificationsConnected);
   const last = useAppSelector((s) => s.realtime.lastNotification);
 
@@ -12,14 +15,17 @@ export const StatusBar = () => {
       spacing={1}
       sx={{ p: 1, borderTop: 1, borderColor: 'divider', alignItems: 'center' }}
     >
-      <Chip size="small" label={connected ? 'SignalR: Connected' : 'SignalR: Disconnected'} />
+      <Chip
+        size="small"
+        label={connected ? tScoped('signalrConnected') : tScoped('signalrDisconnected')}
+      />
       {last ? (
         <Typography variant="caption" sx={{ opacity: 0.8 }}>
           {last.name} @ {last.atIso}
         </Typography>
       ) : (
         <Typography variant="caption" sx={{ opacity: 0.6 }}>
-          No notifications yet
+          {tScoped('noNotifications')}
         </Typography>
       )}
     </Stack>

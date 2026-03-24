@@ -24,12 +24,20 @@
     },
     "tooltip": "Cambiar idioma"
   },
+  "loadingState": {
+    "label": "Cargando..."
+  },
   "navigation": {
     "admin": "Admin",
     "faqs": "FAQs",
     "home": "Inicio",
     "protected": "Protegido",
     "tenders": "Licitaciones"
+  },
+  "statusBar": {
+    "noNotifications": "Todavía no hay notificaciones",
+    "signalrConnected": "SignalR: Conectado",
+    "signalrDisconnected": "SignalR: Desconectado"
   },
   "sidebar": {
     "navigation": "Navegacion",
