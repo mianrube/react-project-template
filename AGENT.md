@@ -235,6 +235,9 @@ Current scripts are:
   "dev:mock": "concurrently -k -n MOCK,APP -c yellow,cyan \"pnpm mock:api\" \"cross-env VITE_MOCK_API_BASE_URL=http://localhost:5001 VITE_MOCK_API_RESOURCES=faqs,tenders pnpm dev\"",
   "dev:mock:custom": "concurrently -k -n MOCK,APP -c yellow,cyan \"pnpm mock:api\" \"cross-env VITE_MOCK_API_BASE_URL=http://localhost:5001 pnpm dev\"",
   "build": "tsc -b && vite build",
+  "build:des": "tsc -b && vite build --mode des",
+  "build:int": "tsc -b && vite build --mode int",
+  "build:pro": "tsc -b && vite build --mode pro",
   "preview": "vite preview",
   "mock:api": "json-server ./mock-api/db.json --port 5001",
   "lint": "eslint src vite.config.ts",
@@ -247,9 +250,11 @@ Current scripts are:
 Behavioral expectations:
 
 - `build` must type-check through project references before running the Vite production build
+- `build:des`, `build:int`, and `build:pro` must type-check through project references before running the Vite build for the matching mode
 - `lint` must run against authored application code under `src/` plus the root Vite TypeScript config
 - `format` and `format:check` must remain repository-wide Prettier commands, controlled through `.prettierignore`
 - `.env`-style files must be excluded from Prettier through `.prettierignore` instead of narrowing formatting to `src/`
+- the repository may keep `.env.template` and `.env.development` only; future deployment environment files such as `.env.des`, `.env.int`, and `.env.pro` are optional but the script contract must reserve those Vite modes
 
 Useful script invocations:
 
@@ -258,6 +263,9 @@ pnpm dev
 pnpm dev:mock
 pnpm dev:mock:custom
 pnpm build
+pnpm build:des
+pnpm build:int
+pnpm build:pro
 pnpm preview
 pnpm mock:api
 pnpm lint

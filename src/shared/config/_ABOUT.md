@@ -39,9 +39,15 @@ Centralized configuration for the application.
 Supports:
 
 - development
-- staging
-- preproduction
-- production
+- des
+- int
+- pro
+
+Mode notes:
+
+- local development uses `.env.development`
+- deployment-targeted builds may later use `.env.des`, `.env.int`, and `.env.pro`
+- Vite mode names and environment file names must stay aligned
 
 ## AI Notes
 
