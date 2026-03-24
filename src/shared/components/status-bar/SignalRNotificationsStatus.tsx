@@ -15,7 +15,7 @@ export const SignalRNotificationsStatus = () => {
   }
 
   return (
-    <Stack direction="row" spacing={1} sx={{ ml: 'auto', alignItems: 'center' }}>
+    <Stack direction="row" spacing={1} sx={{ alignItems: 'center' }}>
       <Chip
         size="small"
         label={connected ? tScoped('signalrConnected') : tScoped('signalrDisconnected')}

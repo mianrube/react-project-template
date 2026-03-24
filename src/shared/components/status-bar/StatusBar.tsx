@@ -8,7 +8,14 @@ export const StatusBar = () => {
     <Stack
       direction="row"
       spacing={1}
-      sx={{ p: 1, borderTop: 1, borderColor: 'divider', alignItems: 'center' }}
+      sx={{
+        p: 1,
+        width: '100%',
+        borderTop: 1,
+        borderColor: 'divider',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+      }}
     >
       <AppVersionStatus />
       <SignalRNotificationsStatus />
