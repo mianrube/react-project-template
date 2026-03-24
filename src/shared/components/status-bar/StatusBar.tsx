@@ -9,12 +9,19 @@ export const StatusBar = () => {
       direction="row"
       spacing={1}
       sx={{
-        p: 1,
+        px: 1.5,
+        py: 0.75,
         width: '100%',
         borderTop: 1,
-        borderColor: 'divider',
+        minHeight: 40,
+        borderColor: (theme) => theme.palette.divider,
         alignItems: 'center',
         justifyContent: 'space-between',
+        gap: 1,
+        overflow: 'hidden',
+        background: (theme) =>
+          `linear-gradient(180deg, ${theme.palette.background.paper} 0%, ${theme.palette.action.hover} 100%)`,
+        boxShadow: (theme) => `inset 0 1px 0 ${theme.palette.action.selected}`,
       }}
     >
       <AppVersionStatus />
