@@ -1,4 +1,4 @@
-import { readEnvString, readEnvStringArray } from './env-readers';
+import { readEnvBoolean, readEnvString, readEnvStringArray } from './env-readers';
 
 export type AuthConfig = {
   clientId: string;
@@ -11,6 +11,7 @@ export type AuthConfig = {
 
 export type AppConfig = {
   apiBaseUrl: string;
+  appVersion: string;
   environmentName: string;
   mockApi: {
     baseUrl: string;
@@ -18,13 +19,17 @@ export type AppConfig = {
   };
   auth: AuthConfig;
   signalR: {
+    notificationsEnabled: boolean;
     notificationsHubUrl: string;
     chatHubUrl: string;
   };
 };
 
+const signalRNotificationsEnabled = readEnvBoolean('VITE_SIGNALR_NOTIFICATIONS_ENABLED', false);
+
 export const appConfig: AppConfig = {
   apiBaseUrl: readEnvString('VITE_API_BASE_URL'),
+  appVersion: readEnvString('VITE_APP_VERSION'),
   environmentName: readEnvString('VITE_ENVIRONMENT_NAME', 'development'),
   mockApi: {
     baseUrl: readEnvString('VITE_MOCK_API_BASE_URL', ''),
@@ -39,7 +44,10 @@ export const appConfig: AppConfig = {
     apiScope: readEnvString('VITE_AUTH_API_SCOPE'),
   },
   signalR: {
-    notificationsHubUrl: readEnvString('VITE_SIGNALR_NOTIFICATIONS_HUB_URL'),
+    notificationsEnabled: signalRNotificationsEnabled,
+    notificationsHubUrl: signalRNotificationsEnabled
+      ? readEnvString('VITE_SIGNALR_NOTIFICATIONS_HUB_URL')
+      : readEnvString('VITE_SIGNALR_NOTIFICATIONS_HUB_URL', ''),
     chatHubUrl: readEnvString('VITE_SIGNALR_CHAT_HUB_URL'),
   },
 };

@@ -37,7 +37,8 @@
   "statusBar": {
     "noNotifications": "No notifications yet",
     "signalrConnected": "SignalR: Connected",
-    "signalrDisconnected": "SignalR: Disconnected"
+    "signalrDisconnected": "SignalR: Disconnected",
+    "version": "Version {{version}}"
   },
   "sidebar": {
     "navigation": "Navigation",

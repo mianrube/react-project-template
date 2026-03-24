@@ -10,6 +10,7 @@ import { useTranslation } from 'react-i18next';
 
 import { msalInstance } from '@shared/auth';
 import { GlobalFeedbackSnackbar } from '@shared/components';
+import { appConfig } from '@shared/config/app-config';
 import { setDayjsLocale } from '@shared/config/localization';
 import { createAppTheme } from '@shared/config/theme';
 import { mapI18nLanguageToLocale } from '@shared/i18n/locale-mapping';
@@ -37,7 +38,7 @@ export const ProvidersRuntime = ({ children }: PropsWithChildren) => {
     <MsalProvider instance={msalInstance}>
       <I18nStoreSync />
       <AuthReturnUrlSync />
-      <SignalRNotificationsRuntime />
+      {appConfig.signalR.notificationsEnabled ? <SignalRNotificationsRuntime /> : null}
       <GlobalErrorRuntime />
 
       <ThemeProvider theme={theme}>

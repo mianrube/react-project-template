@@ -321,6 +321,14 @@ Avoid default exports.
 
 Use functional components declared as constants.
 
+Keep component boundaries pragmatic.
+
+- do not extract tiny JSX fragments only to reduce line count
+- keep a component inline when it has a single responsibility and extraction would not create a meaningful contract
+- extract a focused subcomponent when a parent starts mixing composition with separate concerns such as app config access, Redux selectors, i18n wiring, or conditional rendering rules
+- prefer container-style components that compose named subcomponents when those subcomponents have stable meaning, may evolve independently, or clarify the UI contract
+- if a subcomponent is only meaningful inside one shared module, keep it colocated in that module instead of promoting it to a wider shared surface too early
+
 Preferred:
 
 ```ts
@@ -1256,6 +1264,12 @@ Rules:
 ## 21.1 `shared/components`
 
 This folder owns reusable, domain-agnostic UI building blocks.
+
+Composition guidance for shared components:
+
+- keep top-level shared components readable and declarative
+- when a shared component contains distinct UI sections with different dependencies or reasons to change, split those sections into colocated subcomponents
+- keep those subcomponents near the parent unless they become broadly reusable across unrelated app areas
 
 Current exported shared components include:
 
