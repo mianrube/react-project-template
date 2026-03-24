@@ -20,16 +20,16 @@ export const navItems: NavItem[] = [
     icon: <QuestionAnswerOutlinedIcon fontSize="small" />,
   },
   {
-    id: 'protected',
-    labelKey: 'shared.navigation.protected',
-    to: '/protected',
-    icon: <LockIcon fontSize="small" />,
-  },
-  {
     id: 'tenders',
     labelKey: 'shared.navigation.tenders',
     to: '/tenders',
     icon: <AssignmentOutlinedIcon fontSize="small" />,
+  },
+  {
+    id: 'protected',
+    labelKey: 'shared.navigation.protected',
+    to: '/protected',
+    icon: <LockIcon fontSize="small" />,
   },
   {
     id: 'admin',
