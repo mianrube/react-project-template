@@ -256,6 +256,15 @@ Behavioral expectations:
 - `.env`-style files must be excluded from Prettier through `.prettierignore` instead of narrowing formatting to `src/`
 - the repository may keep `.env.template` and `.env.development` only; future deployment environment files such as `.env.des`, `.env.int`, and `.env.pro` are optional but the script contract must reserve those Vite modes
 
+Environment build mode contract:
+
+- `pnpm build` -> default Vite production build behavior for the current baseline
+- `pnpm build:des` -> deployment build for the `des` mode
+- `pnpm build:int` -> deployment build for the `int` mode
+- `pnpm build:pro` -> deployment build for the `pro` mode
+- when `.env.des`, `.env.int`, or `.env.pro` do not exist in the repo, the matching pipeline or deployment workflow must inject the required `VITE_*` variables for that mode
+- `.env.template` remains the canonical description of the required environment variable structure and must be kept up to date before new environment files or pipeline variables are introduced
+
 Useful script invocations:
 
 ```txt

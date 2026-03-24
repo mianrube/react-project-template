@@ -49,6 +49,15 @@ Mode notes:
 - deployment-targeted builds may later use `.env.des`, `.env.int`, and `.env.pro`
 - Vite mode names and environment file names must stay aligned
 
+Build mode mapping:
+
+- `build` uses the baseline Vite production build behavior
+- `build:des` targets the `des` mode
+- `build:int` targets the `int` mode
+- `build:pro` targets the `pro` mode
+- if the repo does not include `.env.des`, `.env.int`, or `.env.pro`, those builds are expected to receive their `VITE_*` values from the calling pipeline or deployment environment
+- `.env.template` is the source of truth for the expected variable contract across all modes
+
 ## AI Notes
 
 If new config is required:
