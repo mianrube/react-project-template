@@ -62,7 +62,7 @@ export const Sidebar = () => {
 
   const renderNavigationList = (showLabels: boolean) => {
     return (
-      <List dense sx={{ px: 1, py: 1 }}>
+      <List dense sx={{ display: 'grid', gap: 0.5, px: 1.25, py: 1.25 }}>
         {items.map((item) => {
           const label = tNavigation(item.id);
 
@@ -74,12 +74,36 @@ export const Sidebar = () => {
               onClick={isMobile ? handleCloseMobileSidebar : undefined}
               to={item.to}
               sx={{
-                borderRadius: 2,
+                position: 'relative',
+                overflow: 'hidden',
+                borderRadius: 2.5,
                 justifyContent: showLabels ? 'initial' : 'center',
                 minHeight: 44,
+                color: 'text.secondary',
                 px: showLabels ? 1.5 : 1,
+                transition: (currentTheme) =>
+                  currentTheme.transitions.create(['background-color', 'color', 'transform'], {
+                    duration: currentTheme.transitions.duration.shorter,
+                  }),
+                '&:hover': {
+                  bgcolor: 'action.hover',
+                  color: 'text.primary',
+                },
                 '&.active': {
-                  bgcolor: 'action.selected',
+                  bgcolor: (currentTheme) => alpha(currentTheme.palette.primary.main, 0.12),
+                  color: 'primary.main',
+                  boxShadow: (currentTheme) =>
+                    `inset 0 0 0 1px ${alpha(currentTheme.palette.primary.main, 0.18)}`,
+                },
+                '&.active::before': {
+                  content: '""',
+                  position: 'absolute',
+                  left: 8,
+                  top: 9,
+                  bottom: 9,
+                  width: 3,
+                  borderRadius: 999,
+                  bgcolor: 'primary.main',
                 },
               }}
             >
@@ -88,14 +112,21 @@ export const Sidebar = () => {
                   sx={{
                     color: 'inherit',
                     justifyContent: 'center',
-                    minWidth: showLabels ? 36 : 'auto',
+                    minWidth: showLabels ? 38 : 'auto',
                   }}
                 >
                   {item.icon}
                 </ListItemIcon>
               ) : null}
 
-              {showLabels ? <ListItemText primary={label} /> : null}
+              {showLabels ? (
+                <ListItemText
+                  primary={label}
+                  slotProps={{
+                    primary: { fontSize: 14, fontWeight: 600, lineHeight: 1.2 },
+                  }}
+                />
+              ) : null}
             </ListItemButton>
           );
 
@@ -114,7 +145,7 @@ export const Sidebar = () => {
   };
 
   const sidebarContent = (
-    <Stack sx={{ height: '100%' }}>
+    <Stack sx={{ height: '100%', backgroundColor: 'background.paper' }}>
       <Stack
         direction="row"
         spacing={1}
@@ -122,14 +153,19 @@ export const Sidebar = () => {
           alignItems: 'center',
           backgroundColor: alpha(currentTheme.palette.background.paper, 0.92),
           justifyContent: isMobile || isDesktopExpanded ? 'space-between' : 'center',
-          p: 1,
+          px: 1.25,
+          py: 1,
           position: 'relative',
           zIndex: 1,
           boxShadow: `inset 0 -1px 0 ${alpha(currentTheme.palette.text.primary, 0.06)}`,
         })}
       >
         {isMobile || isDesktopExpanded ? (
-          <Typography noWrap sx={{ px: 1 }} variant="subtitle2">
+          <Typography
+            noWrap
+            sx={{ px: 0.75, color: 'text.secondary', fontWeight: 700, letterSpacing: 0.4 }}
+            variant="subtitle2"
+          >
             {tSidebar('navigation')}
           </Typography>
         ) : null}
@@ -139,9 +175,29 @@ export const Sidebar = () => {
             aria-label={isMobile ? tSidebar('closeNavigation') : collapseTooltip}
             onClick={isMobile ? handleCloseMobileSidebar : handleToggleDesktopSidebar}
             size="small"
-            sx={{
+            sx={(currentTheme) => ({
               borderRadius: 2,
-            }}
+              color: 'text.secondary',
+              border: `1px solid ${alpha(currentTheme.palette.text.primary, 0.08)}`,
+              bgcolor:
+                currentTheme.palette.mode === 'light'
+                  ? alpha(currentTheme.palette.background.default, 0.9)
+                  : alpha(currentTheme.palette.common.white, 0.04),
+              transition: currentTheme.transitions.create(
+                ['background-color', 'border-color', 'color'],
+                {
+                  duration: currentTheme.transitions.duration.shortest,
+                },
+              ),
+              '&:hover': {
+                color: 'text.primary',
+                borderColor: alpha(currentTheme.palette.text.primary, 0.12),
+                bgcolor:
+                  currentTheme.palette.mode === 'light'
+                    ? alpha(currentTheme.palette.primary.main, 0.06)
+                    : alpha(currentTheme.palette.common.white, 0.08),
+              },
+            })}
           >
             {isMobile ? <CloseOutlinedIcon /> : null}
             {!isMobile ? (
@@ -175,7 +231,8 @@ export const Sidebar = () => {
           '& .MuiDrawer-paper': {
             backgroundColor: theme.palette.background.paper,
             boxSizing: 'border-box',
-            boxShadow: `8px 0 32px ${alpha(theme.palette.common.black, theme.palette.mode === 'light' ? 0.12 : 0.36)}`,
+            boxShadow: `2px 0 12px ${alpha(theme.palette.common.black, theme.palette.mode === 'light' ? 0.08 : 0.28)}`,
+            borderRight: `1px solid ${alpha(theme.palette.text.primary, theme.palette.mode === 'light' ? 0.1 : 0.06)}`,
             width: MOBILE_SIDEBAR_WIDTH,
           },
         }}
@@ -191,7 +248,9 @@ export const Sidebar = () => {
       component="aside"
       sx={{
         backgroundColor: 'background.paper',
-        boxShadow: `8px 0 24px ${alpha(theme.palette.common.black, theme.palette.mode === 'light' ? 0.04 : 0.24)}`,
+        borderRight: (currentTheme) =>
+          `1px solid ${alpha(currentTheme.palette.text.primary, currentTheme.palette.mode === 'light' ? 0.1 : 0.05)}`,
+        boxShadow: `2px 0 8px ${alpha(theme.palette.common.black, theme.palette.mode === 'light' ? 0.03 : 0.18)}`,
         display: { xs: 'none', md: 'block' },
         flexShrink: 0,
         overflow: 'hidden',
@@ -201,12 +260,12 @@ export const Sidebar = () => {
         }),
         width: currentDesktopWidth,
         '&::after': {
-          background: `linear-gradient(90deg, ${alpha(theme.palette.common.black, 0)} 0%, ${alpha(theme.palette.common.black, theme.palette.mode === 'light' ? 0.04 : 0.12)} 100%)`,
+          background: `linear-gradient(90deg, ${alpha(theme.palette.common.black, 0)} 0%, ${alpha(theme.palette.common.black, theme.palette.mode === 'light' ? 0.025 : 0.08)} 100%)`,
           content: '""',
           inset: '0 0 0 auto',
           pointerEvents: 'none',
           position: 'absolute',
-          width: 12,
+          width: 8,
         },
       }}
     >
