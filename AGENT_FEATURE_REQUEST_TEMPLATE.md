@@ -9,7 +9,14 @@ You MUST strictly follow:
 - AGENT.md
 - all relevant `_ABOUT.md` files
 
+Optional reference:
+
+- `PROJECT_RECONSTRUCTION.md` only if the task is actually to start a new project from this base scaffold or to validate the base scaffold contract
+
 Do NOT improvise architecture.
+
+This template is for evolutionary feature work inside an existing repository.
+It is not the normal entry point for bootstrapping a new project from zero.
 
 ---
 
