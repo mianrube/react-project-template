@@ -46,7 +46,7 @@ export const appConfig: AppConfig = {
 
 export type MockApiResource = 'faqs' | 'tenders';
 
-export type CrudMockResourceUrls = {
+export type CrudResourceUrls = {
   collection: string;
   item: (id: string) => string;
 };
@@ -72,10 +72,10 @@ export const resolveFeatureApiUrl = (resource: MockApiResource, path: string): s
   return new URL(path.replace(/^\//, ''), `${normalizedMockApiBaseUrl}/`).toString();
 };
 
-export const createCrudMockResourceUrls = (
+export const createCrudResourceUrls = (
   resource: MockApiResource,
   collectionPath: string,
-): CrudMockResourceUrls => {
+): CrudResourceUrls => {
   return {
     collection: resolveFeatureApiUrl(resource, collectionPath),
     item: (id: string) => {

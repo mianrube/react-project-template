@@ -1,4 +1,4 @@
-import { createCrudMockResourceUrls } from '@shared/config/app-config';
+import { createCrudResourceUrls } from '@shared/config/app-config';
 
 import { baseApi } from '@store/api';
 
@@ -9,7 +9,7 @@ type UpdateFaqArg = {
   values: FaqFormValues;
 };
 
-const faqResourceUrls = createCrudMockResourceUrls('faqs', '/faqs');
+const faqResourceUrls = createCrudResourceUrls('faqs', '/faqs');
 
 const sortFaqs = (items: FaqItem[]): FaqItem[] => {
   return [...items].sort((left, right) => {

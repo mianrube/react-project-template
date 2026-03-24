@@ -16,7 +16,7 @@ This feature contains both the public FAQ experience and the administration work
 - the feature may consume shared form helpers from `shared/forms`
 - when there is no real backend, this feature should prefer the project `json-server` mock backend so the pages already talk to a real HTTP boundary
 - the current FAQ mock source lives in `mock-api/db.json` and is selected through `VITE_MOCK_API_BASE_URL` plus `VITE_MOCK_API_RESOURCES`
-- use `createCrudMockResourceUrls('faqs', '/faqs')` as the base convention for this kind of CRUD resource
+- use `createCrudResourceUrls('faqs', '/faqs')` as the base convention for this kind of CRUD resource
 - this feature should not need explicit pending markers while the mock and real route shapes stay aligned
 - the public/admin split must stay intact when the mock source is replaced by the real API
 
