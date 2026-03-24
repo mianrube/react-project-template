@@ -12,6 +12,11 @@
     "retry": "Retry",
     "title": "Something went wrong"
   },
+  "errorState": {
+    "description": "The requested data could not be loaded.",
+    "retry": "Retry",
+    "title": "Something went wrong"
+  },
   "languageSwitcher": {
     "languages": {
       "en": "English",

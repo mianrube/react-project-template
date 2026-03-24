@@ -12,6 +12,11 @@
     "retry": "Reintentar",
     "title": "Algo salió mal"
   },
+  "errorState": {
+    "description": "No se han podido cargar los datos solicitados.",
+    "retry": "Reintentar",
+    "title": "Algo salió mal"
+  },
   "languageSwitcher": {
     "languages": {
       "en": "Inglés",
